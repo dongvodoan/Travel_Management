@@ -43,7 +43,7 @@ class LoginController extends Controller
     {
         return 'username';
     }
-    
+
     /**
      * Create a new controller instance.
      *
