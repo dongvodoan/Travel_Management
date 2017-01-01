@@ -16,3 +16,54 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('travels', 'TravelAPIController');
+
+Route::resource('abouts', 'AboutAPIController');
+
+Route::resource('types', 'TypeAPIController');
+
+Route::resource('activities', 'ActivityAPIController');
+
+Route::resource('images', 'ImageAPIController');
+
+Route::resource('category_tours', 'CategoryTourAPIController');
+
+Route::resource('times', 'TimeAPIController');
+
+Route::resource('prices', 'PriceAPIController');
+
+Route::resource('itineraries', 'ItineraryAPIController');
+
+Route::resource('tours', 'TourAPIController');
+
+Route::resource('places', 'PlaceAPIController');

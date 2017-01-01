@@ -24,4 +24,26 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'Backend\HomeController@index');
+
+Route::resource('travels', 'Backend\TravelController');
+
+Route::resource('abouts', 'Backend\AboutController');
+
+Route::resource('types', 'Backend\TypeController');
+
+Route::resource('activities', 'Backend\ActivityController');
+
+Route::resource('images', 'Backend\ImageController');
+
+Route::resource('categoryTours', 'Backend\CategoryTourController');
+
+Route::resource('times', 'Backend\TimeController');
+
+Route::resource('prices', 'Backend\PriceController');
+
+Route::resource('itineraries', 'Backend\ItineraryController');
+
+Route::resource('tours', 'Backend\TourController');
+
+Route::resource('places', 'Backend\PlaceController');
