@@ -1,13 +1,13 @@
 <table class="table table-responsive" id="types-table">
     <thead>
         <th>Name</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($types as $type)
         <tr>
             <td>{!! $type->name !!}</td>
-            <td>
+            <td style="width: 80px;">
                 {!! Form::open(['route' => ['types.destroy', $type->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('types.show', [$type->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

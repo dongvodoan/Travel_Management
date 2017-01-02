@@ -2,14 +2,14 @@
     <thead>
         <th>Name</th>
         <th>Activities Id</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($images as $image)
         <tr>
             <td>{!! $image->name !!}</td>
             <td>{!! $image->activities_id !!}</td>
-            <td>
+            <td style="width: 80px;">
                 {!! Form::open(['route' => ['images.destroy', $image->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('images.show', [$image->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

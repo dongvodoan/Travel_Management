@@ -1,19 +1,19 @@
 <table class="table table-responsive" id="activities-table">
     <thead>
         <th>Title</th>
-        <th>Descibe</th>
+        <th>Describe</th>
         <th>Content</th>
         <th>Types Id</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($activities as $activity)
         <tr>
             <td>{!! $activity->title !!}</td>
-            <td>{!! $activity->descibe !!}</td>
+            <td>{!! $activity->describe !!}</td>
             <td>{!! $activity->content !!}</td>
             <td>{!! $activity->types_id !!}</td>
-            <td>
+            <td style="width: 80px;">
                 {!! Form::open(['route' => ['activities.destroy', $activity->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('activities.show', [$activity->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

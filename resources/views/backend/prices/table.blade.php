@@ -3,7 +3,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Content</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($prices as $price)
@@ -11,7 +11,7 @@
             <td>{!! $price->name !!}</td>
             <td>{!! $price->price !!}</td>
             <td>{!! $price->content !!}</td>
-            <td>
+            <td style="width:80px;">
                 {!! Form::open(['route' => ['prices.destroy', $price->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('prices.show', [$price->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

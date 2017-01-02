@@ -2,14 +2,14 @@
     <thead>
         <th>Time</th>
         <th>Describe</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($times as $time)
         <tr>
             <td>{!! $time->time !!}</td>
             <td>{!! $time->describe !!}</td>
-            <td>
+            <td style="width: 80px;">
                 {!! Form::open(['route' => ['times.destroy', $time->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('times.show', [$time->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

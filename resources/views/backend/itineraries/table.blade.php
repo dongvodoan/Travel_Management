@@ -2,14 +2,14 @@
     <thead>
         <th>Title</th>
         <th>Content</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($itineraries as $itinerary)
         <tr>
             <td>{!! $itinerary->title !!}</td>
             <td>{!! $itinerary->content !!}</td>
-            <td>
+            <td style="width: 80px;">
                 {!! Form::open(['route' => ['itineraries.destroy', $itinerary->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('itineraries.show', [$itinerary->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

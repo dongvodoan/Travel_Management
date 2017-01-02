@@ -5,7 +5,7 @@
         <th>Times Id</th>
         <th>Prices Id</th>
         <th>Itineraries Id</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($tours as $tour)
@@ -15,7 +15,7 @@
             <td>{!! $tour->times_id !!}</td>
             <td>{!! $tour->prices_id !!}</td>
             <td>{!! $tour->itineraries_id !!}</td>
-            <td>
+            <td style="width:80px;">
                 {!! Form::open(['route' => ['tours.destroy', $tour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('tours.show', [$tour->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

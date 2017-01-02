@@ -21,3 +21,11 @@
     </div>
 @endsection
 
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){ 
+            $('#types-table').DataTable();
+        });
+    </script>
+@endsection
+
