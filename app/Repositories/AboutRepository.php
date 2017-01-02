@@ -12,7 +12,8 @@ class AboutRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'title',
-        'content'
+        'content',
+        'check'
     ];
 
     /**

@@ -22,7 +22,8 @@ class About extends Model
 
     public $fillable = [
         'title',
-        'content'
+        'content',
+        'check'
     ];
 
     /**

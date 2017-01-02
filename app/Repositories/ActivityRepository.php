@@ -12,7 +12,7 @@ class ActivityRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'title',
-        'descibe',
+        'describe',
         'content',
         'types_id'
     ];

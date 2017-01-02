@@ -22,7 +22,7 @@ class Activity extends Model
 
     public $fillable = [
         'title',
-        'descibe',
+        'describe',
         'content',
         'types_id'
     ];
@@ -34,7 +34,7 @@ class Activity extends Model
      */
     protected $casts = [
         'title' => 'string',
-        'descibe' => 'string',
+        'describe' => 'string',
         'types_id' => 'integer'
     ];
 
@@ -45,7 +45,7 @@ class Activity extends Model
      */
     public static $rules = [
         'title' => 'descibe text textarea',
-        'descibe' => 'required',
+        'describe' => 'required',
         'content' => 'required'
     ];
 

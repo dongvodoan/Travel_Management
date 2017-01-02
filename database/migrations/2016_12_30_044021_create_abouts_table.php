@@ -17,6 +17,7 @@ class CreateAboutsTable extends Migration
             $table->increments('id');
             $table->string('title', 255);
             $table->longtext('content');
+            $table->boolean('check')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

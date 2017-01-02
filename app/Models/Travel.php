@@ -22,7 +22,8 @@ class Travel extends Model
 
     public $fillable = [
         'title',
-        'content'
+        'content',
+        'check'
     ];
 
     /**

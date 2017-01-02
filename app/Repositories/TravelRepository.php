@@ -12,7 +12,8 @@ class TravelRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'title',
-        'content'
+        'content',
+        'check'
     ];
 
     /**
