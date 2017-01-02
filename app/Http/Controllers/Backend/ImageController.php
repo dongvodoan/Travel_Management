@@ -32,7 +32,7 @@ class ImageController extends AppBaseController
         $this->imageRepository->pushCriteria(new RequestCriteria($request));
         $images = $this->imageRepository->all();
 
-        return view('images.index')
+        return view('backend.images.index')
             ->with('images', $images);
     }
 
@@ -43,7 +43,7 @@ class ImageController extends AppBaseController
      */
     public function create()
     {
-        return view('images.create');
+        return view('backend.images.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class ImageController extends AppBaseController
             return redirect(route('images.index'));
         }
 
-        return view('images.show')->with('image', $image);
+        return view('backend.images.show')->with('image', $image);
     }
 
     /**
@@ -101,7 +101,7 @@ class ImageController extends AppBaseController
             return redirect(route('images.index'));
         }
 
-        return view('images.edit')->with('image', $image);
+        return view('backend.images.edit')->with('image', $image);
     }
 
     /**

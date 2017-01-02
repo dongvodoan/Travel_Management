@@ -32,7 +32,7 @@ class ItineraryController extends AppBaseController
         $this->itineraryRepository->pushCriteria(new RequestCriteria($request));
         $itineraries = $this->itineraryRepository->all();
 
-        return view('itineraries.index')
+        return view('backend.itineraries.index')
             ->with('itineraries', $itineraries);
     }
 
@@ -43,7 +43,7 @@ class ItineraryController extends AppBaseController
      */
     public function create()
     {
-        return view('itineraries.create');
+        return view('backend.itineraries.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class ItineraryController extends AppBaseController
             return redirect(route('itineraries.index'));
         }
 
-        return view('itineraries.show')->with('itinerary', $itinerary);
+        return view('backend.itineraries.show')->with('itinerary', $itinerary);
     }
 
     /**
@@ -101,7 +101,7 @@ class ItineraryController extends AppBaseController
             return redirect(route('itineraries.index'));
         }
 
-        return view('itineraries.edit')->with('itinerary', $itinerary);
+        return view('backend.itineraries.edit')->with('itinerary', $itinerary);
     }
 
     /**

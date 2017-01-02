@@ -32,7 +32,7 @@ class PlaceController extends AppBaseController
         $this->placeRepository->pushCriteria(new RequestCriteria($request));
         $places = $this->placeRepository->all();
 
-        return view('places.index')
+        return view('backend.places.index')
             ->with('places', $places);
     }
 
@@ -43,7 +43,7 @@ class PlaceController extends AppBaseController
      */
     public function create()
     {
-        return view('places.create');
+        return view('backend.places.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class PlaceController extends AppBaseController
             return redirect(route('places.index'));
         }
 
-        return view('places.show')->with('place', $place);
+        return view('backend.places.show')->with('place', $place);
     }
 
     /**
@@ -101,7 +101,7 @@ class PlaceController extends AppBaseController
             return redirect(route('places.index'));
         }
 
-        return view('places.edit')->with('place', $place);
+        return view('backend.places.edit')->with('place', $place);
     }
 
     /**

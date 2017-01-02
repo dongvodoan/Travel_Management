@@ -32,7 +32,7 @@ class TourController extends AppBaseController
         $this->tourRepository->pushCriteria(new RequestCriteria($request));
         $tours = $this->tourRepository->all();
 
-        return view('tours.index')
+        return view('backend.tours.index')
             ->with('tours', $tours);
     }
 
@@ -43,7 +43,7 @@ class TourController extends AppBaseController
      */
     public function create()
     {
-        return view('tours.create');
+        return view('backend.tours.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class TourController extends AppBaseController
             return redirect(route('tours.index'));
         }
 
-        return view('tours.show')->with('tour', $tour);
+        return view('backend.tours.show')->with('tour', $tour);
     }
 
     /**
@@ -101,7 +101,7 @@ class TourController extends AppBaseController
             return redirect(route('tours.index'));
         }
 
-        return view('tours.edit')->with('tour', $tour);
+        return view('backend.tours.edit')->with('tour', $tour);
     }
 
     /**

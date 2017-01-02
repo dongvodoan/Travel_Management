@@ -32,7 +32,7 @@ class TimeController extends AppBaseController
         $this->timeRepository->pushCriteria(new RequestCriteria($request));
         $times = $this->timeRepository->all();
 
-        return view('times.index')
+        return view('backend.times.index')
             ->with('times', $times);
     }
 
@@ -43,7 +43,7 @@ class TimeController extends AppBaseController
      */
     public function create()
     {
-        return view('times.create');
+        return view('backend.times.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class TimeController extends AppBaseController
             return redirect(route('times.index'));
         }
 
-        return view('times.show')->with('time', $time);
+        return view('backend.times.show')->with('time', $time);
     }
 
     /**
@@ -101,7 +101,7 @@ class TimeController extends AppBaseController
             return redirect(route('times.index'));
         }
 
-        return view('times.edit')->with('time', $time);
+        return view('backend.times.edit')->with('time', $time);
     }
 
     /**

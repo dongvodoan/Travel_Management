@@ -32,7 +32,7 @@ class PriceController extends AppBaseController
         $this->priceRepository->pushCriteria(new RequestCriteria($request));
         $prices = $this->priceRepository->all();
 
-        return view('prices.index')
+        return view('backend.prices.index')
             ->with('prices', $prices);
     }
 
@@ -43,7 +43,7 @@ class PriceController extends AppBaseController
      */
     public function create()
     {
-        return view('prices.create');
+        return view('backend.prices.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class PriceController extends AppBaseController
             return redirect(route('prices.index'));
         }
 
-        return view('prices.show')->with('price', $price);
+        return view('backend.prices.show')->with('price', $price);
     }
 
     /**
@@ -101,7 +101,7 @@ class PriceController extends AppBaseController
             return redirect(route('prices.index'));
         }
 
-        return view('prices.edit')->with('price', $price);
+        return view('backend.prices.edit')->with('price', $price);
     }
 
     /**

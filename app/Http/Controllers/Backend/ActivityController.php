@@ -32,7 +32,7 @@ class ActivityController extends AppBaseController
         $this->activityRepository->pushCriteria(new RequestCriteria($request));
         $activities = $this->activityRepository->all();
 
-        return view('activities.index')
+        return view('backend.activities.index')
             ->with('activities', $activities);
     }
 
@@ -43,7 +43,7 @@ class ActivityController extends AppBaseController
      */
     public function create()
     {
-        return view('activities.create');
+        return view('backend.activities.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class ActivityController extends AppBaseController
             return redirect(route('activities.index'));
         }
 
-        return view('activities.show')->with('activity', $activity);
+        return view('backend.activities.show')->with('activity', $activity);
     }
 
     /**
@@ -101,7 +101,7 @@ class ActivityController extends AppBaseController
             return redirect(route('activities.index'));
         }
 
-        return view('activities.edit')->with('activity', $activity);
+        return view('backend.activities.edit')->with('activity', $activity);
     }
 
     /**

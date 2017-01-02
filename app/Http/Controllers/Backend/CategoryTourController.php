@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\CreateCategoryTourRequest;
 use App\Http\Requests\UpdateCategoryTourRequest;
@@ -32,7 +32,7 @@ class CategoryTourController extends AppBaseController
         $this->categoryTourRepository->pushCriteria(new RequestCriteria($request));
         $categoryTours = $this->categoryTourRepository->all();
 
-        return view('category_tours.index')
+        return view('backend.category_tours.index')
             ->with('categoryTours', $categoryTours);
     }
 
@@ -43,7 +43,7 @@ class CategoryTourController extends AppBaseController
      */
     public function create()
     {
-        return view('category_tours.create');
+        return view('backend.category_tours.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class CategoryTourController extends AppBaseController
             return redirect(route('categoryTours.index'));
         }
 
-        return view('category_tours.show')->with('categoryTour', $categoryTour);
+        return view('backend.category_tours.show')->with('categoryTour', $categoryTour);
     }
 
     /**
@@ -101,7 +101,7 @@ class CategoryTourController extends AppBaseController
             return redirect(route('categoryTours.index'));
         }
 
-        return view('category_tours.edit')->with('categoryTour', $categoryTour);
+        return view('backend.category_tours.edit')->with('categoryTour', $categoryTour);
     }
 
     /**
