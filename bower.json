@@ -1,0 +1,14 @@
+{
+  "name": "travel_management",
+  "description": "Travel Project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/bower_dl",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "summernote": "^0.8.2"
+  }
+}
