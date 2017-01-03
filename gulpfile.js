@@ -1,4 +1,5 @@
-const elixir = require('laravel-elixir');
+var gulp = require('gulp');
+var elixir = require('laravel-elixir');
 
 require('laravel-elixir-vue-2');
 
@@ -14,6 +15,19 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    // Combine scripts
+  mix.scripts([ 
+      'summernote/dist/summernote.min.js'
+    ],
+    'public/backend/js/vendor.js',
+    'vendor/bower_dl'
+  );
+
+  // Compile css
+  mix.styles([
+  	  'summernote/dist/summernote.css'
+  ], 
+    'public/backend/css/vendor.css',
+    'vendor/bower_dl'
+  );
 });
