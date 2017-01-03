@@ -42,7 +42,7 @@ class Time extends Model
      */
     public static $rules = [
         'time' => 'required|max:15',
-        'describe' => 'required'
+        'describe' => 'required' 
     ];
 
     /**
