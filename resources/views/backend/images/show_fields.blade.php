@@ -16,6 +16,12 @@
     <p>{!! $image->activities_id !!}</p>
 </div>
 
+<!-- Tours Id Field -->
+<div class="form-group">
+    {!! Form::label('tours_id', 'Tours Id:') !!}
+    <p>{!! $image->tours_id !!}</p>
+</div>
+
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}

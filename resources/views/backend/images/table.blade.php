@@ -2,6 +2,7 @@
     <thead>
         <th>Name</th>
         <th>Activities Id</th>
+        <th>Tours Id</th>
         <th>Action</th>
     </thead>
     <tbody>
@@ -9,6 +10,7 @@
         <tr>
             <td>{!! $image->name !!}</td>
             <td>{!! $image->activities_id !!}</td>
+            <td>{!! $image->tours_id !!}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['images.destroy', $image->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

@@ -5,6 +5,7 @@
         <th>Times Id</th>
         <th>Prices Id</th>
         <th>Itineraries Id</th>
+        <th>Category Tour Id</th>
         <th>Action</th>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
             <td>{!! $tour->times_id !!}</td>
             <td>{!! $tour->prices_id !!}</td>
             <td>{!! $tour->itineraries_id !!}</td>
+            <td>{!! $tour->category_tours_id !!}</td>
             <td style="width:80px;">
                 {!! Form::open(['route' => ['tours.destroy', $tour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

@@ -8,7 +8,7 @@
     <tbody>
     @foreach($prices as $price)
         <tr>
-            <td>{!! $price->name !!}</td>
+            <td>{!! $price->title !!}</td>
             <td>{!! $price->price !!}</td>
             <td>{!! $price->content !!}</td>
             <td style="width:80px;">

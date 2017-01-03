@@ -6,8 +6,8 @@
 
 <!-- Name Field -->
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    <p>{!! $price->name !!}</p>
+    {!! Form::label('title', 'Title:') !!}
+    <p>{!! $price->title !!}</p>
 </div>
 
 <!-- Price Field -->
