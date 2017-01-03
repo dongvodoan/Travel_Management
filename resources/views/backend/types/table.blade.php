@@ -6,7 +6,7 @@
     <tbody>
     @foreach($types as $type)
         <tr>
-            <td>{!! $type->name !!}</td>
+            <td>{{ $type->name }}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['types.destroy', $type->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
