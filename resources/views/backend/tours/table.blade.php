@@ -13,10 +13,10 @@
         <tr>
             <td>{!! $tour->title !!}</td>
             <td>{!! $tour->describe !!}</td>
-            <td>{!! $tour->times_id !!}</td>
-            <td>{!! $tour->prices_id !!}</td>
+            <td>{!! $tour->times->time !!}</td>
+            <td><strong>$</strong>{!! $tour->prices->price !!}</td>
             <td>{!! $tour->itineraries_id !!}</td>
-            <td>{!! $tour->category_tours_id !!}</td>
+            <td>{!! $tour->category_tours->name !!}</td>
             <td style="width:80px;">
                 {!! Form::open(['route' => ['tours.destroy', $tour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
