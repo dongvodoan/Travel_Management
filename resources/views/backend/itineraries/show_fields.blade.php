@@ -1,13 +1,8 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $itinerary->id !!}</p>
-</div>
 
 <!-- Title Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
-    <p>{!! $itinerary->title !!}</p>
+    <p>{{ $itinerary->title }}</p>
 </div>
 
 <!-- Content Field -->

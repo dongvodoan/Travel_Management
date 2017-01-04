@@ -1,3 +1,4 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="itineraries-table">
     <thead>
         <th>Title</th>
@@ -7,8 +8,8 @@
     <tbody>
     @foreach($itineraries as $itinerary)
         <tr>
-            <td>{!! $itinerary->title !!}</td>
-            <td>{!! $itinerary->content !!}</td>
+            <td>{{ $itinerary->title }}</td>
+            <td>{!! Util::theExcerpt($itinerary->content) !!}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['itineraries.destroy', $itinerary->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
