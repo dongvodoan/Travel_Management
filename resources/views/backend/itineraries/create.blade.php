@@ -1,5 +1,9 @@
 @extends('backend.layouts.app')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ url('backend/css/vendor.css') }}">
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
@@ -22,3 +26,18 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ url('backend/js/vendor.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#itinerari-textarea').summernote({
+                height: 300,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+            });
+        });
+  </script>
+@endsection 
+
+
