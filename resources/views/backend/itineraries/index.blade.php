@@ -1,5 +1,6 @@
 @extends('backend.layouts.app')
 
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Itineraries</h1>
