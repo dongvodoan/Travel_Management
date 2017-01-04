@@ -7,8 +7,8 @@
     <tbody>
     @foreach($times as $time)
         <tr>
-            <td>{!! $time->time !!}</td>
-            <td>{!! $time->describe !!}</td>
+            <td>{{ $time->time }}</td>
+            <td>{{ $time->describe }}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['times.destroy', $time->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

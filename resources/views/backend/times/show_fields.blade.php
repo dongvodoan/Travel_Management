@@ -1,8 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $time->id !!}</p>
-</div>
 
 <!-- Time Field -->
 <div class="form-group">
