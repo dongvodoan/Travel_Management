@@ -1,19 +1,14 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $price->id !!}</p>
-</div>
 
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
-    <p>{!! $price->title !!}</p>
+    <p>{{ $price->title }}</p>
 </div>
 
 <!-- Price Field -->
 <div class="form-group">
     {!! Form::label('price', 'Price:') !!}
-    <p>{!! $price->price !!}</p>
+    <p><strong>$</strong>{{ $price->price }}</p>
 </div>
 
 <!-- Content Field -->

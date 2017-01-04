@@ -1,3 +1,4 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="prices-table">
     <thead>
         <th>Name</th>
@@ -8,9 +9,9 @@
     <tbody>
     @foreach($prices as $price)
         <tr>
-            <td>{!! $price->title !!}</td>
-            <td>{!! $price->price !!}</td>
-            <td>{!! $price->content !!}</td>
+            <td>{{ $price->title }}</td>
+            <td><strong>$</strong>{{ $price->price }}</td>
+            <td>{!! Util::theExcerpt($price->content) !!}</td>
             <td style="width:80px;">
                 {!! Form::open(['route' => ['prices.destroy', $price->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

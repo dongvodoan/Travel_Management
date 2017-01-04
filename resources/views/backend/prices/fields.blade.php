@@ -13,7 +13,7 @@
 <!-- Content Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('content', 'Content:') !!}
-    {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+    {!! Form::textarea('content', null, ['class' => 'form-control', 'id' => 'price-textarea']) !!}
 </div>
 
 <!-- Submit Field -->
