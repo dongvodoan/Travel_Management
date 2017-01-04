@@ -41,8 +41,7 @@ class CategoryTour extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:30|min:3',
-        'describe' => 'required'
+        'name' => 'required|max:30|min:3'
     ];
 
     /**
