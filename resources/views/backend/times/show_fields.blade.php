@@ -2,13 +2,13 @@
 <!-- Time Field -->
 <div class="form-group">
     {!! Form::label('time', 'Time:') !!}
-    <p>{!! $time->time !!}</p>
+    <p>{{ $time->time }}</p>
 </div>
 
 <!-- Describe Field -->
 <div class="form-group">
     {!! Form::label('describe', 'Describe:') !!}
-    <p>{!! $time->describe !!}</p>
+    <p>{{ $time->describe }}</p>
 </div>
 
 <!-- Created At Field -->

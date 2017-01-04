@@ -1,3 +1,4 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="categoryTours-table">
     <thead>
         <th>Name</th>
@@ -8,7 +9,7 @@
     @foreach($categoryTours as $categoryTour)
         <tr>
             <td>{{ $categoryTour->name }}</td>
-            <td>{{ $categoryTour->describe }}</td>
+            <td>{{ Util::theExcerpt($categoryTour->describe) }}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['categoryTours.destroy', $categoryTour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
