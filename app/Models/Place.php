@@ -39,7 +39,7 @@ class Place extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:30|min:5'
+        'name' => 'required|max:30|min:3'
     ];
 
     /**
