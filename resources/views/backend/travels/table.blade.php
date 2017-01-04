@@ -1,14 +1,22 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="travels-table">
     <thead>
         <th>Title</th>
         <th>Content</th>
+        <th>Display</th>
         <th>Action</th>
     </thead>
     <tbody>
     @foreach($travels as $travel)
         <tr>
-            <td>{!! $travel->title !!}</td>
-            <td>{!! $travel->content !!}</td>
+            <td>{{ $travel->title }}</td>
+            <!--<td>{!! $travel->content !!}</td>-->
+            <td>{!! Util::theExcerpt($travel->content) !!}</td>
+            <td> 
+                @if(($travel->check) == 0) No
+                @else Yes
+                @endif
+            </td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['travels.destroy', $travel->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
