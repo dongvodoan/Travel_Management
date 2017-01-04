@@ -25,7 +25,8 @@ class Tour extends Model
         'describe',
         'times_id',
         'prices_id',
-        'itineraries_id'
+        'itineraries_id',
+        'category_tours_id'
     ];
 
     /**

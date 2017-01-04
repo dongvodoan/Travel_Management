@@ -1,19 +1,24 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $about->id !!}</p>
-</div>
 
 <!-- Title Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
-    <p>{!! $about->title !!}</p>
+    <p>{{ $about->title }}</p>
 </div>
 
 <!-- Content Field -->
 <div class="form-group">
     {!! Form::label('content', 'Content:') !!}
     <p>{!! $about->content !!}</p>
+</div>
+
+<!-- Content Field -->
+<div class="form-group">
+    {!! Form::label('check', 'Display:') !!}
+    <p>
+        @if(($about->check)==0) No
+        @else Yes
+        @endif
+    </p>
 </div>
 
 <!-- Created At Field -->

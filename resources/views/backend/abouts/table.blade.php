@@ -1,14 +1,21 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="abouts-table">
     <thead>
         <th>Title</th>
         <th>Content</th>
+        <th>Display</th>
         <th>Action</th>
     </thead>
     <tbody>
     @foreach($abouts as $about)
         <tr>
-            <td>{!! $about->title !!}</td>
-            <td>{!! $about->content !!}</td>
+            <td>{{ $about->title }}</td>
+            <td>{!! Util::theExcerpt($about->content) !!}</td>
+            <td> 
+                @if(($about->check)==0) No
+                @else Yes
+                @endif
+            </td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['abouts.destroy', $about->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
