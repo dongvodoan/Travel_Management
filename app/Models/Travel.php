@@ -41,8 +41,8 @@ class Travel extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'content' => 'required'
+        'title' => 'required|max:30|min:3',
+        'content' => 'required' 
     ];
 
     

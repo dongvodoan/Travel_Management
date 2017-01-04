@@ -1,19 +1,19 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $travel->id !!}</p>
-</div>
 
 <!-- Title Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
-    <p>{!! $travel->title !!}</p>
+    <p>{{ $travel->title }}</p>
 </div>
 
 <!-- Content Field -->
 <div class="form-group">
     {!! Form::label('content', 'Content:') !!}
     <p>{!! $travel->content !!}</p>
+</div>
+
+<div class="form-group">
+    {!! Form::label('display', 'Display:') !!}
+    <p>{!! $travel->check !!}</p>
 </div>
 
 <!-- Created At Field -->
