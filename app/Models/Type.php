@@ -39,7 +39,7 @@ class Type extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required'
+        'name' => 'required|max:20|min:3'
     ];
 
     /**
