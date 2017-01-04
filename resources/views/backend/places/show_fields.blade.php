@@ -2,7 +2,7 @@
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
-    <p>{!! $place->name !!}</p>
+    <p>{{ $place->name }}</p>
 </div>
 
 <!-- Created At Field -->
