@@ -7,8 +7,8 @@
     <tbody>
     @foreach($categoryTours as $categoryTour)
         <tr>
-            <td>{!! $categoryTour->name !!}</td>
-            <td>{!! $categoryTour->describe !!}</td>
+            <td>{{ $categoryTour->name }}</td>
+            <td>{{ $categoryTour->describe }}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['categoryTours.destroy', $categoryTour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
