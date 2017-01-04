@@ -6,7 +6,7 @@
     <tbody>
     @foreach($places as $place)
         <tr>
-            <td>{!! $place->name !!}</td>
+            <td>{{ $place->name }}</td>
             <td style="width:80px;">
                 {!! Form::open(['route' => ['places.destroy', $place->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
