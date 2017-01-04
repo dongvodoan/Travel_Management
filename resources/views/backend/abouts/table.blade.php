@@ -6,7 +6,7 @@
         <th>Display</th>
         <th>Action</th>
     </thead>
-    <tbody>
+    <tbody> 
     @foreach($abouts as $about)
         <tr>
             <td>{{ $about->title }}</td>
