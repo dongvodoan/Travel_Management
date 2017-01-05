@@ -12,7 +12,7 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'tours.store']) !!}
+                    {!! Form::open(['route' => 'tours.store', 'files' => 'true']) !!}
 
                         @include('backend.tours.fields')
 
@@ -21,4 +21,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ url('backend/js/displayimages.js')}}"></script>
 @endsection

@@ -5,20 +5,42 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\CreateTourRequest;
 use App\Http\Requests\UpdateTourRequest;
 use App\Repositories\TourRepository;
+use App\Repositories\TimeRepository;
+use App\Repositories\PriceRepository;
+use App\Repositories\ItineraryRepository;
+use App\Repositories\CategoryTourRepository;
+use App\Repositories\PlaceRepository;
+use App\Repositories\ImageRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use File;
 
 class TourController extends AppBaseController
 {
     /** @var  TourRepository */
     private $tourRepository;
 
-    public function __construct(TourRepository $tourRepo)
+    /** @var  TimeRepository */
+    private $timeRepository;
+
+    /** @var  PriceRepository */
+    private $priceRepository;
+
+    /** @var  CategoryTourRepository */
+    private $categoryTourRepository;
+
+    public function __construct(TourRepository $tourRepo, TimeRepository $timeRepo, PriceRepository $priceRepo, ItineraryRepository $itineraryRepo, CategoryTourRepository $categoryTourRepo, PlaceRepository $placeRepo, ImageRepository $imageRepo)
     {
         $this->tourRepository = $tourRepo;
+        $this->timeRepository = $timeRepo;
+        $this->priceRepository = $priceRepo;
+        $this->itineraryRepository = $itineraryRepo;
+        $this->categoryTourRepository = $categoryTourRepo;
+        $this->placeRepository = $placeRepo;
+        $this->imageRepository = $imageRepo;
     }
 
     /**
@@ -43,7 +65,17 @@ class TourController extends AppBaseController
      */
     public function create()
     {
-        return view('backend.tours.create');
+        $times = $this->timeRepository->all();
+
+        $prices = $this->priceRepository->all();
+
+        $itineraries = $this->itineraryRepository->all();
+
+        $categoryTours = $this->categoryTourRepository->all();
+
+        $places = $this->placeRepository->all();
+
+        return view('backend.tours.create', compact('times', 'prices', 'itineraries', 'categoryTours', 'places'));
     }
 
     /**
@@ -57,7 +89,32 @@ class TourController extends AppBaseController
     {
         $input = $request->all();
 
-        $tour = $this->tourRepository->create($input);
+        $token = $input['_token'];
+
+        $check = $request->input('check_list');
+               
+        if ($request->hasFile('image')) {
+            $tour = $this->tourRepository->create($input);
+
+            $tour = $this->tourRepository->all()->last();
+
+            $tour->places()->attach($check);
+
+            $tours_id = $tour['id'];
+
+            $data = array('_token' => $token,'name' => '', 'tours_id'=> $tours_id);
+        
+            $images = $request->file('image');
+            
+            foreach($images as $image){
+                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
+
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }       
+        }
 
         Flash::success('Tour saved successfully.');
 
@@ -95,13 +152,23 @@ class TourController extends AppBaseController
     {
         $tour = $this->tourRepository->findWithoutFail($id);
 
+        $times = $this->timeRepository->all();
+
+        $prices = $this->priceRepository->all();
+
+        $itineraries = $this->itineraryRepository->all();
+
+        $categoryTours = $this->categoryTourRepository->all();
+
+        $places = $this->placeRepository->all();
+
         if (empty($tour)) {
             Flash::error('Tour not found');
 
             return redirect(route('tours.index'));
         }
 
-        return view('backend.tours.edit')->with('tour', $tour);
+        return view('backend.tours.edit', compact('tour', 'times', 'prices', 'itineraries', 'categoryTours', 'places'));
     }
 
     /**
@@ -116,6 +183,8 @@ class TourController extends AppBaseController
     {
         $tour = $this->tourRepository->findWithoutFail($id);
 
+        $check = $request->input('check_list');
+
         if (empty($tour)) {
             Flash::error('Tour not found');
 
@@ -123,6 +192,8 @@ class TourController extends AppBaseController
         }
 
         $tour = $this->tourRepository->update($request->all(), $id);
+
+        $tour->places()->sync($check);
 
         Flash::success('Tour updated successfully.');
 

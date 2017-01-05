@@ -1,8 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $tour->id !!}</p>
-</div>
 
 <!-- Title Field -->
 <div class="form-group">
@@ -18,20 +13,38 @@
 
 <!-- Times Id Field -->
 <div class="form-group">
-    {!! Form::label('times_id', 'Times Id:') !!}
-    <p>{!! $tour->times_id !!}</p>
+    {!! Form::label('times_id', 'Time:') !!}
+    <p>{!! $tour->times->time !!}</p>
 </div>
 
 <!-- Prices Id Field -->
 <div class="form-group">
-    {!! Form::label('prices_id', 'Prices Id:') !!}
-    <p>{!! $tour->prices_id !!}</p>
+    {!! Form::label('prices_id', 'Price:') !!}
+    <p>{!! $tour->prices->title !!}</p>
 </div>
 
 <!-- Itineraries Id Field -->
 <div class="form-group">
-    {!! Form::label('itineraries_id', 'Itineraries Id:') !!}
-    <p>{!! $tour->itineraries_id !!}</p>
+    {!! Form::label('itineraries_id', 'Itinerarie:') !!}
+    <p>{!! $tour->itineraries->title !!}</p>
+</div>
+
+<!-- Itineraries Id Field -->
+<div class="form-group">
+    {!! Form::label('category_tours_id', 'Category Tour:') !!}
+    <p>{!! $tour->category_tours->name !!}</p>
+</div>
+
+<!-- Test -->
+<div class="form-group">
+    {!! Form::label('places', 'Places:') !!}
+    <p> 
+        @foreach($tour->places as $place) 
+            <span style="border: 1px solid gray;margin:5px;padding: 5px;">
+                {!! $place->name !!}
+            </span> 
+        @endforeach
+    </p>
 </div>
 
 <!-- Created At Field -->
