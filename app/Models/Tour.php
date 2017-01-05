@@ -49,7 +49,14 @@ class Tour extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required'
+        'title' => 'required|max:200|min:10',
+        'describe' => 'required|max:500|min:10',
+        'times_id' => 'required',
+        'prices_id' => 'required',
+        'itineraries_id' => 'required',
+        'category_tours_id' => 'required',
+        'check_list' => 'required',
+        'image.*' => 'required|mimes:jpeg,jpg,png|max:8192'
     ];
 
     /**
@@ -97,6 +104,6 @@ class Tour extends Model
      **/
     public function places()
     {
-        return $this->belongsToMany(App\Models\Place::class,'tour_places','tours_id','places_id');
+        return $this->belongsToMany(\App\Models\Place::class,'tour_places','tours_id','places_id');
     }    
 }

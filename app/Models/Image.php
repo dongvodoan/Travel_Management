@@ -22,6 +22,7 @@ class Image extends Model
 
     public $fillable = [
         'name',
+        'tours_id',
         'activities_id'
     ];
 

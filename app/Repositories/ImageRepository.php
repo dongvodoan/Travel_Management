@@ -12,6 +12,7 @@ class ImageRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'name',
+        'tours_id',
         'activities_id'
     ];
 
