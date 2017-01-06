@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\CreateImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Repositories\ImageRepository;
+use App\Repositories\ActivityRepository;
+use App\Repositories\TourRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -16,9 +18,14 @@ class ImageController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
-    public function __construct(ImageRepository $imageRepo)
+    /** @var  ActivityRepository */
+    private $activityRepository;
+
+    public function __construct(ImageRepository $imageRepo, ActivityRepository $activityRepo,TourRepository $tourRepo)
     {
         $this->imageRepository = $imageRepo;
+        $this->activityRepository = $activityRepo;
+        $this->tourRepository = $tourRepo;
     }
 
     /**
@@ -32,6 +39,7 @@ class ImageController extends AppBaseController
         $this->imageRepository->pushCriteria(new RequestCriteria($request));
         $images = $this->imageRepository->all();
 
+
         return view('backend.images.index')
             ->with('images', $images);
     }
@@ -41,9 +49,15 @@ class ImageController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('backend.images.create');
+        $this->activityRepository->pushCriteria(new RequestCriteria($request));
+        $activities = $this->activityRepository->all();
+        $this->tourRepository->pushCriteria(new RequestCriteria($request));
+        $tours = $this->tourRepository->all();
+        
+        return view('backend.images.create', compact('activities','tours'));
+       // return view('backend.images.create')->with('activities', $activities);
     }
 
     /**
@@ -56,7 +70,11 @@ class ImageController extends AppBaseController
     public function store(CreateImageRequest $request)
     {
         $input = $request->all();
-
+        if($request->hasFile('images')) {
+            $images = $allRequest['images'];
+            dd($images);
+          
+        }
         $image = $this->imageRepository->create($input);
 
         Flash::success('Image saved successfully.');

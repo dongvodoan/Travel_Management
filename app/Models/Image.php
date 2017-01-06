@@ -42,7 +42,8 @@ class Image extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required'
+        
+        'images[]' => 'required|mimes:jpeg,png'
     ];
 
     /**

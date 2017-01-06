@@ -1,8 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $image->id !!}</p>
-</div>
 
 <!-- Name Field -->
 <div class="form-group">
@@ -12,14 +7,14 @@
 
 <!-- Activities Id Field -->
 <div class="form-group">
-    {!! Form::label('activities_id', 'Activities Id:') !!}
-    <p>{!! $image->activities_id !!}</p>
+    {!! Form::label('activities_id', 'Activities Title:') !!}
+    <p>{{ $image->activities->title }}</p>
 </div>
 
 <!-- Tours Id Field -->
 <div class="form-group">
-    {!! Form::label('tours_id', 'Tours Id:') !!}
-    <p>{!! $image->tours_id !!}</p>
+    {!! Form::label('tours_id', 'Tours Title:') !!}
+    <p>{{ $image->tours->title }}</p>
 </div>
 
 <!-- Created At Field -->

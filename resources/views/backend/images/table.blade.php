@@ -1,16 +1,16 @@
 <table class="table table-responsive" id="images-table">
     <thead>
         <th>Name</th>
-        <th>Activities Id</th>
-        <th>Tours Id</th>
+        <th>Activities Title</th>
+        <th>Tours Title</th>
         <th>Action</th>
     </thead>
     <tbody>
     @foreach($images as $image)
         <tr>
             <td>{!! $image->name !!}</td>
-            <td>{!! $image->activities_id !!}</td>
-            <td>{!! $image->tours_id !!}</td>
+            <td>{{ $image->activities->title }}</td>
+            <td>{{ $image->tours->title }}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['images.destroy', $image->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
