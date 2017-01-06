@@ -1,22 +1,29 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="tours-table">
     <thead>
         <th>Title</th>
         <th>Describe</th>
-        <th>Times Id</th>
-        <th>Prices Id</th>
-        <th>Itineraries Id</th>
-        <th>Category Tour Id</th>
+        <th>Times</th>
+        <th>Prices</th>
+        <th>Itineraries</th>
+        <th>Category Tour</th>
+        <th>Places</th>
         <th>Action</th>
     </thead>
     <tbody>
     @foreach($tours as $tour)
         <tr>
             <td>{!! $tour->title !!}</td>
-            <td>{!! $tour->describe !!}</td>
-            <td>{!! $tour->times_id !!}</td>
-            <td>{!! $tour->prices_id !!}</td>
-            <td>{!! $tour->itineraries_id !!}</td>
-            <td>{!! $tour->category_tours_id !!}</td>
+            <td>{!! Util::theExcerpt($tour->describe) !!}</td>
+            <td>{!! $tour->times->time !!}</td>
+            <td>{!! $tour->prices->title !!}</td>
+            <td>{!! $tour->itineraries->title !!}</td>
+            <td>{!! $tour->category_tours->name !!}</td>
+            <td>
+                @foreach($tour->places as $place) 
+                    {!! $place->name !!}     
+                @endforeach
+            </td>
             <td style="width:80px;">
                 {!! Form::open(['route' => ['tours.destroy', $tour->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

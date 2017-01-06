@@ -22,3 +22,8 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="{{ url('backend/js/displayimages.js')}}"></script>
+@endsection
+

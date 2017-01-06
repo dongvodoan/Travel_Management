@@ -16,7 +16,7 @@
     <select name="times_id" class="form-control">
     	<option value=""></option>
     	@foreach($times as $time)
-    	<option value="{!! $time->id !!}">{!! $time->time !!}</option>
+    	<option @if(($time->time)===($tour->times->time)) selected @endif value="{!! $time->id !!}">{!! $time->time !!}</option>
     	@endforeach
     </select>	
 </div>
@@ -27,7 +27,7 @@
     <select name="prices_id" class="form-control">
     	<option value=""></option>
     	@foreach($prices as $price)
-    	<option value="{!! $price->id !!}">{!! $price->title !!}</option>
+    	<option @if(($price->title)===($tour->prices->title)) selected @endif value="{!! $price->id !!}">{!! $price->title !!}</option>
     	@endforeach
     </select>	
 </div>
@@ -38,7 +38,7 @@
     <select name="itineraries_id" class="form-control">
     	<option value=""></option>
     	@foreach($itineraries as $itinerary)
-    	<option value="{!! $itinerary->id !!}">{!! $itinerary->title !!}</option>
+    	<option @if(($itinerary->title)===($tour->itineraries->title)) selected @endif value="{!! $itinerary->id !!}">{!! $itinerary->title !!}</option>
     	@endforeach
     </select>	
 </div>
@@ -49,34 +49,27 @@
     <select name="category_tours_id" class="form-control">
     	<option value=""></option>
     	@foreach($categoryTours as $categoryTour)
-    	<option value="{!! $categoryTour->id !!}">{!! $categoryTour->name !!}</option>
+    	<option @if(($categoryTour->name)===($tour->category_tours->name)) selected @endif value="{!! $categoryTour->id !!}">{!! $categoryTour->name !!}</option>
     	@endforeach
     </select>	
 </div>
 
+{{-- @foreach($tour->places as $place_check) {!!$place_check->name!!} @endforeach --}}
 <!-- Place Field -->
-<div class="form-group col-sm-12 col-lg-12"> 
+<div class="form-group col-sm-12 col-lg-12">
 	<div class="col col-lg-1 col-md-1">
 		 {!! Form::label('place', 'Choose Place') !!}
 	</div>
 	<div class="col col-lg-11 col-md-11 thumbnail">
 		@foreach($places as $place)
-	{!! Form::checkbox('check_list[]', $place->id, null, ['id' => $place->name]) !!}
-	{!! Form::label($place->name, $place->name, ['style' => 'margin-right: 10px']) !!}
+		<input type="checkbox" name="check_list[]" @foreach($tour->places as $place1) @if($place->id === $place1->id) checked @else false @endif @endforeach value="{{ $place->id }}" id="{{ $place->name }}">
+        <label for="{!! $place->name !!}" style="margin-right: 10px">{!! $place->name !!}</label>
 	@endforeach
 	</div>
 </div>
 
-<!-- Images Field -->
-<div class="col-lg-12">
-    <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                {{ Form::file('image[]',['class' => 'control','id' => 'files', 'multiple' => 'multiple']) }}
-            </div>
-            <div id="selectedFiles"></div> 
-</div> 
-
 <!-- Submit Field -->
-<div class="form-group col-sm-12" style="margin-top: 15px;">
+<div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('tours.index') !!}" class="btn btn-default">Cancel</a>
 </div>

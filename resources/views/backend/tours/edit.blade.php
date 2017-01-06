@@ -13,7 +13,7 @@
                <div class="row">
                    {!! Form::model($tour, ['route' => ['tours.update', $tour->id], 'method' => 'patch']) !!}
 
-                        @include('backend.tours.fields')
+                        @include('backend.tours.edit_fields')
 
                    {!! Form::close() !!}
                </div>

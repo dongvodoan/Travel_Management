@@ -47,7 +47,7 @@ class Place extends Model
      **/
     public function tours()
     {
-        return $this->belongsToMany(App\Models\Tour::class,'tour_places','places_id','tours_id');
+        return $this->belongsToMany(App\Models\Tour::class,'tour_places', 'places_id', 'tours_id');
     } 
     
 }

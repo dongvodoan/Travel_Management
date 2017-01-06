@@ -22,6 +22,7 @@ class Image extends Model
 
     public $fillable = [
         'name',
+        'tours_id',
         'activities_id'
     ];
 
@@ -42,8 +43,8 @@ class Image extends Model
      * @var array
      */
     public static $rules = [
-        
-        'images[]' => 'required|mimes:jpeg,png'
+        'image.*' => 'required|mimes:jpeg,jpg,png|max:8192',
+        'image' => 'mimes:jpeg,jpg,png|max:8192',
     ];
 
     /**

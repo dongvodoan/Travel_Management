@@ -70,12 +70,33 @@ class ImageController extends AppBaseController
     public function store(CreateImageRequest $request)
     {
         $input = $request->all();
-        if($request->hasFile('images')) {
-            $images = $allRequest['images'];
-            dd($images);
-          
+        
+        if($input['tours_id']==null){
+            $data = array('_token' => $input['_token'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
         }
-        $image = $this->imageRepository->create($input);
+        if($input['activities_id']==null){
+            $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'image' => $input['image'] );
+        }
+        if(($input['activities_id']==null)&&($input['tours_id']==null)){
+            $data = array('_token' => $input['_token'], 'image' => $input['image'] );
+        }
+        if(($input['activities_id']!=null)&&($input['tours_id']!=null)){
+            $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
+        }
+        if ($request->hasFile('image')) {
+     
+            $images = $request->file('image');
+            
+            foreach($images as $image){
+  
+                $imagename=time() . '.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
+
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }       
+        }
 
         Flash::success('Image saved successfully.');
 
@@ -112,14 +133,19 @@ class ImageController extends AppBaseController
     public function edit($id)
     {
         $image = $this->imageRepository->findWithoutFail($id);
-
+         //dd($image['id']);
+       
+        $activities = $this->activityRepository->all();
+       
+        $tours = $this->tourRepository->all();
+        //dd($tours);
         if (empty($image)) {
             Flash::error('Image not found');
 
             return redirect(route('images.index'));
         }
 
-        return view('backend.images.edit')->with('image', $image);
+        return view('backend.images.edit', compact('activities','tours', 'image'));
     }
 
     /**
@@ -132,15 +158,40 @@ class ImageController extends AppBaseController
      */
     public function update($id, UpdateImageRequest $request)
     {
-        $image = $this->imageRepository->findWithoutFail($id);
+        $input = $request->all();
+        $activities_id = $input['activities_id'];
+        $input['activities_id'] = $activities_id;
+        $tours_id = $input['tours_id'];
+        $input['tours_id'] = $tours_id;
 
+        if($tours_id==null){
+            $input = array('_token' => $input['_token'], 'activities_id'=> $activities_id, 'tours_id'=> null );
+        }
+        if($activities_id==null){
+            $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> null);
+        }
+        if(($activities_id==null)&&($tours_id==null)){
+            $input = array('_token' => $input['_token'], 'activities_id'=> null, 'tours_id'=> null);
+        }
+        if(($activities_id!=null)&&($tours_id!=null)){
+            $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> $activities_id);
+        }
+
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $imagename=time().'.'. $img->getClientOriginalExtension();
+            $input['name'] = $imagename;
+            $img->move(public_path(config('path.upload_img')), $imagename);
+        }
+        $image = $this->imageRepository->findWithoutFail($id);
+        
         if (empty($image)) {
             Flash::error('Image not found');
 
             return redirect(route('images.index'));
         }
 
-        $image = $this->imageRepository->update($request->all(), $id);
+        $image = $this->imageRepository->update($input, $id);
 
         Flash::success('Image updated successfully.');
 
