@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\CreateImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Repositories\ImageRepository;
+use App\Repositories\ActivityRepository;
+use App\Repositories\TourRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -16,9 +18,14 @@ class ImageController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
-    public function __construct(ImageRepository $imageRepo)
+    /** @var  ActivityRepository */
+    private $activityRepository;
+
+    public function __construct(ImageRepository $imageRepo, ActivityRepository $activityRepo,TourRepository $tourRepo)
     {
         $this->imageRepository = $imageRepo;
+        $this->activityRepository = $activityRepo;
+        $this->tourRepository = $tourRepo;
     }
 
     /**
@@ -32,6 +39,7 @@ class ImageController extends AppBaseController
         $this->imageRepository->pushCriteria(new RequestCriteria($request));
         $images = $this->imageRepository->all();
 
+
         return view('backend.images.index')
             ->with('images', $images);
     }
@@ -41,9 +49,15 @@ class ImageController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('backend.images.create');
+        $this->activityRepository->pushCriteria(new RequestCriteria($request));
+        $activities = $this->activityRepository->all();
+        $this->tourRepository->pushCriteria(new RequestCriteria($request));
+        $tours = $this->tourRepository->all();
+        
+        return view('backend.images.create', compact('activities','tours'));
+       // return view('backend.images.create')->with('activities', $activities);
     }
 
     /**
@@ -56,8 +70,33 @@ class ImageController extends AppBaseController
     public function store(CreateImageRequest $request)
     {
         $input = $request->all();
+        
+        if($input['tours_id']==null){
+            $data = array('_token' => $input['_token'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
+        }
+        if($input['activities_id']==null){
+            $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'image' => $input['image'] );
+        }
+        if(($input['activities_id']==null)&&($input['tours_id']==null)){
+            $data = array('_token' => $input['_token'], 'image' => $input['image'] );
+        }
+        if(($input['activities_id']!=null)&&($input['tours_id']!=null)){
+            $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
+        }
+        if ($request->hasFile('image')) {
+     
+            $images = $request->file('image');
+            
+            foreach($images as $image){
+  
+                $imagename=time() . '.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
 
-        $image = $this->imageRepository->create($input);
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }       
+        }
 
         Flash::success('Image saved successfully.');
 
@@ -94,14 +133,17 @@ class ImageController extends AppBaseController
     public function edit($id)
     {
         $image = $this->imageRepository->findWithoutFail($id);
-
+       
+        $activities = $this->activityRepository->all();
+       
+        $tours = $this->tourRepository->all();
         if (empty($image)) {
             Flash::error('Image not found');
 
             return redirect(route('images.index'));
         }
 
-        return view('backend.images.edit')->with('image', $image);
+        return view('backend.images.edit', compact('activities','tours', 'image'));
     }
 
     /**
@@ -114,6 +156,31 @@ class ImageController extends AppBaseController
      */
     public function update($id, UpdateImageRequest $request)
     {
+        $input = $request->all();
+        $activities_id = $input['activities_id'];
+       
+        $tours_id = $input['tours_id'];
+        
+
+        if($tours_id==null){
+            $input = array('_token' => $input['_token'], 'activities_id'=> $activities_id, 'tours_id'=> null );
+        }
+        if($activities_id==null){
+            $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> null);
+        }
+        if(($activities_id==null)&&($tours_id==null)){
+            $input = array('_token' => $input['_token'], 'activities_id'=> null, 'tours_id'=> null);
+        }
+        if(($activities_id!=null)&&($tours_id!=null)){
+            $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> $activities_id);
+        }
+
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $imagename=time().'.'. $img->getClientOriginalExtension();
+            $input['name'] = $imagename;
+            $img->move(public_path(config('path.upload_img')), $imagename);
+        }
         $image = $this->imageRepository->findWithoutFail($id);
 
         if (empty($image)) {
@@ -122,7 +189,7 @@ class ImageController extends AppBaseController
             return redirect(route('images.index'));
         }
 
-        $image = $this->imageRepository->update($request->all(), $id);
+        $image = $this->imageRepository->update($input, $id);
 
         Flash::success('Image updated successfully.');
 

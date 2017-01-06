@@ -1,25 +1,18 @@
-<!-- Id Field -->
+<!--View Image Field-->
 <div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $image->id !!}</p>
-</div>
-
-<!-- Name Field -->
-<div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    <p>{!! $image->name !!}</p>
+    <img style="border:none; width: 300px; height: 150px;" src="{{ url(config('path.upload_img').$image->name) }}" class = "setpicture img-thumbnail img_upload" id ="image_no"></img>
 </div>
 
 <!-- Activities Id Field -->
 <div class="form-group">
-    {!! Form::label('activities_id', 'Activities Id:') !!}
-    <p>{!! $image->activities_id !!}</p>
+    {!! Form::label('activities_id', 'Activities Title:') !!}
+    <p>@if($image->activities_id==null)  @else {{ $image->activities->title }} @endif</p>
 </div>
 
 <!-- Tours Id Field -->
 <div class="form-group">
-    {!! Form::label('tours_id', 'Tours Id:') !!}
-    <p>{!! $image->tours_id !!}</p>
+    {!! Form::label('tours_id', 'Tours Title:') !!}
+    <p>@if($image->tours_id==null)  @else{{ $image->tours->title }} @endif</p>
 </div>
 
 <!-- Created At Field -->

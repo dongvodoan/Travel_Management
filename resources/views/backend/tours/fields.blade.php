@@ -55,7 +55,7 @@
 </div>
 
 <!-- Place Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-12 col-lg-12"> 
 	<div class="col col-lg-1 col-md-1">
 		 {!! Form::label('place', 'Choose Place') !!}
 	</div>
@@ -69,10 +69,10 @@
 
 <!-- Images Field -->
 <div class="col-lg-12">
-    <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
+    <div class="form-group">
                 {{ Form::file('image[]',['class' => 'control','id' => 'files', 'multiple' => 'multiple']) }}
             </div>
-            <div id="selectedFiles"></div>
+            <div id="selectedFiles"></div> 
 </div> 
 
 <!-- Submit Field -->

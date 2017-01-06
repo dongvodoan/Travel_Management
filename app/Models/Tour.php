@@ -56,7 +56,7 @@ class Tour extends Model
         'itineraries_id' => 'required',
         'category_tours_id' => 'required',
         'check_list' => 'required',
-        'image.*' => 'required|mimes:jpeg,jpg,png|max:8192'
+        'image.*' => 'required|mimes:jpeg,jpg,png|max:8192' 
     ];
 
     /**

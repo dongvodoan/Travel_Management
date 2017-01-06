@@ -89,7 +89,7 @@ class TourController extends AppBaseController
     {
         $input = $request->all();
 
-        $token = $input['_token'];
+        $token = $input['_token']; 
 
         $check = $request->input('check_list');
                
