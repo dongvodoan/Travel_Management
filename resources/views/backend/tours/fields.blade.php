@@ -69,7 +69,7 @@
 
 <!-- Images Field -->
 <div class="col-lg-12">
-    <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
+    <div class="form-group">
                 {{ Form::file('image[]',['class' => 'control','id' => 'files', 'multiple' => 'multiple']) }}
             </div>
             <div id="selectedFiles"></div> 

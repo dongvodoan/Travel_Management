@@ -133,12 +133,10 @@ class ImageController extends AppBaseController
     public function edit($id)
     {
         $image = $this->imageRepository->findWithoutFail($id);
-         //dd($image['id']);
        
         $activities = $this->activityRepository->all();
        
         $tours = $this->tourRepository->all();
-        //dd($tours);
         if (empty($image)) {
             Flash::error('Image not found');
 
@@ -160,9 +158,9 @@ class ImageController extends AppBaseController
     {
         $input = $request->all();
         $activities_id = $input['activities_id'];
-        $input['activities_id'] = $activities_id;
+       
         $tours_id = $input['tours_id'];
-        $input['tours_id'] = $tours_id;
+        
 
         if($tours_id==null){
             $input = array('_token' => $input['_token'], 'activities_id'=> $activities_id, 'tours_id'=> null );
@@ -184,7 +182,7 @@ class ImageController extends AppBaseController
             $img->move(public_path(config('path.upload_img')), $imagename);
         }
         $image = $this->imageRepository->findWithoutFail($id);
-        
+
         if (empty($image)) {
             Flash::error('Image not found');
 
