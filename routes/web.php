@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
+Route::resource('travel-us', 'Frontend\TravelUsController');
+
+Route::resource('about-us', 'Frontend\AboutUsController');
+
 Route::get('/contacts', ['as' => 'contacts.index', 'uses' => 'Frontend\ContactController@index']);
 
 Route::post('/contacts', ['as' => 'contacts.send', 'uses' => 'Frontend\ContactController@send']);
