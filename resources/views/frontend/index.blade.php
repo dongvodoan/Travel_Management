@@ -131,6 +131,7 @@
 @endsection
 
 @section('scripts')
+  <script src="{{ url('frontend/js/jquery.carouFredSel-6.1.0-packed.js') }}"></script>
 	<script src="{{ url('frontend/js/tms-0.4.1.js') }}"></script>
 	<script src="{{ url('frontend/js/frontend.js') }}"></script>
 @endsection
