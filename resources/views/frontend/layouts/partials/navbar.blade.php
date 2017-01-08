@@ -9,7 +9,7 @@
   </li>
   <li><a href="news.html">Day trips</a></li>
   <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
-  <li class="{{ Request::is('things-to-do*') ? 'current' : '' }}">
+  <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
     <a href="{{ route('things-to-do.index') }}">Things to do</a>
     <ul>
       @foreach($types as $type)

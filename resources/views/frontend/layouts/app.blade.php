@@ -41,7 +41,7 @@
           <li class="current"><a href="index.html">Home</a></li>
           <li><a href="tours.html">Tours</a></li>
           <li><a href="news.html">Day trips</a></li>
-          <li class="{{ Request::is('things-to-do*') ? 'current' : '' }}">
+          <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
             <a href="{{ route('things-to-do.index') }}">Things to do</a>
           </li>
           <li class="{{ Request::is('about-us*') || Request::is('travel-us*') ? 'current' : '' }}">
