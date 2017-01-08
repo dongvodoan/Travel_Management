@@ -9,6 +9,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\TravelRepository;
 use App\Models\Tour;
 use Flash;
+use App\Models\Activity;
 
 class AboutUsController extends AppBaseController
 {
@@ -41,9 +42,11 @@ class AboutUsController extends AppBaseController
 
         $this->aboutRepository->pushCriteria(new RequestCriteria($request));
         $about_us = $this->aboutRepository->findWhere(['title' => 'about us']);
+
+        $types = Activity::select('types_id')->distinct()->get();
         
         
-        return view('frontend.abouts.about', compact('abouts', 'travels', 'categories', 'about_us'));
+        return view('frontend.abouts.index', compact('abouts', 'travels', 'categories', 'about_us', 'types'));
     }
 
     /**
@@ -85,13 +88,15 @@ class AboutUsController extends AppBaseController
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
+        $types = Activity::select('types_id')->distinct()->get();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('about-us.index'));
         }
 
-        return view('frontend.abouts.show', compact('abouts', 'travels', 'categories', 'item' ));
+        return view('frontend.abouts.show', compact('abouts', 'travels', 'categories', 'item', 'types' ));
     }
 
     /**
