@@ -17,7 +17,9 @@
     </ul>
   </li>
   
-  <li><a href="about_us.html">About us</a></li>
+  <li class="{{ Request::is('about-us*') || Request::is('travel-us*') ? 'current' : '' }}">
+    <a href="{{ route('about-us.index') }}">About us</a>
+  </li>
   <li class="{{ Request::is('contacts*') ? 'current' : '' }}">
     <a href="{{ route('contacts.index') }}">Contacts</a>
   </li>
