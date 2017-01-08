@@ -9,11 +9,12 @@
   </li>
   <li><a href="news.html">Day trips</a></li>
   <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
-  <li><a href="thing_todo.html">Things to do</a>
+  <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
+    <a href="{{ route('things-to-do.index') }}">Things to do</a>
     <ul>
-      <li><a href="#"> cuisine</a></li>
-      <li><a href="#">Good rest</a></li>
-      <li><a href="#">Services</a></li>
+      @foreach($types as $type)
+          <li><a href="{{route('activities.filter',$type->types_id)}}"> {{ $type->types->name }}</a></li>
+      @endforeach 
     </ul>
   </li>
   

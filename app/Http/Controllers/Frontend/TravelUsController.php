@@ -10,6 +10,7 @@ use App\Http\Controllers\AppBaseController;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AboutRepository;
 use App\Models\Tour;
+use App\Models\Activity;
 
 class TravelUsController extends AppBaseController
 {
@@ -74,13 +75,15 @@ class TravelUsController extends AppBaseController
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
+        $types = Activity::select('types_id')->distinct()->get();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('about-us.index'));
         }
 
-        return view('frontend.travels.show', compact('abouts', 'travels', 'categories', 'item' ));
+        return view('frontend.travels.show', compact('abouts', 'travels', 'categories', 'item', 'types' ));
     }
 
     /**

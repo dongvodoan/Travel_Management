@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SendContactRequest;
 use Mail;
 use Flash;
+use App\Models\Activity;
 
 class ContactController extends Controller
 {
@@ -17,7 +18,8 @@ class ContactController extends Controller
      * @return Response
      */
     public function index(Request $request) {
-    	return view('frontend.contacts.contact');
+        $types = Activity::select('types_id')->distinct()->get();
+    	return view('frontend.contacts.index', compact('types'));
     }
 
     /**
