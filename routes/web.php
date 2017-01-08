@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
+Route::get('/contacts', ['as' => 'contacts.index', 'uses' => 'Frontend\ContactController@index']);
+
+Route::post('/contacts', ['as' => 'contacts.send', 'uses' => 'Frontend\ContactController@send']);
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
 

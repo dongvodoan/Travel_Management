@@ -18,5 +18,7 @@
   </li>
   
   <li><a href="about_us.html">About us</a></li>
-  <li><a href="contacts.html">Contacts</a></li>
+  <li class="{{ Request::is('contacts*') ? 'current' : '' }}">
+    <a href="{{ route('contacts.index') }}">Contacts</a>
+  </li>
 </ul>

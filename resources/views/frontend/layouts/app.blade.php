@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gourmet Hanoi Travel</title>
+    <title>Gourmet Hanoi Travel @yield('title')</title>
     <meta charset="utf-8">
     <link rel="icon" href="{{ url('frontend/images/favicon.ico')}}">
     <link rel="shortcut icon" href="{{ url('frontend/images/favicon.ico')}}">
@@ -43,7 +43,9 @@
           <li><a href="news.html">Day trips</a></li>
           <li><a href="thing_todo.html">Things to do</a></li>
           <li><a href="about_us.html">About us</a></li>
-          <li><a href="contacts.html">Contact us</a></li>
+          <li class="{{ Request::is('contacts*') ? 'current' : '' }}">
+            <a href="{{ route('contacts.index') }}">Contact us</a>
+          </li>
         </ul>
       </nav>
     </div>
