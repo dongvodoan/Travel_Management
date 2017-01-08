@@ -113,10 +113,13 @@ class TourController extends AppBaseController
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
-            }       
+            }
+            Flash::success('Tour saved successfully.');
+
+            return redirect(route('tours.index'));      
         }
 
-        Flash::success('Tour saved successfully.');
+        Flash::error('Tour saved unsuccessfully.');
 
         return redirect(route('tours.index'));
     }
