@@ -15,7 +15,7 @@
 <div class="main">
   <header>
     <div class="container_12">
-      <div class="grid_12">
+      <div class="col col-lg-12">
         <h1><a href="index.html"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a></h1>
         <div class="menu_block">
           <nav>
@@ -39,7 +39,9 @@
       <nav>
         <ul>
           <li class="current"><a href="index.html">Home</a></li>
-          <li><a href="tours.html">Tours</a></li>
+          <li class="{{ Request::is('tours-travel*') || Request::is('category*') ? 'current' : '' }}">
+            <a href="{{ route('tours-travel.index') }}">Tours</a>
+          </li>
           <li><a href="news.html">Day trips</a></li>
           <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
             <a href="{{ route('things-to-do.index') }}">Things to do</a>

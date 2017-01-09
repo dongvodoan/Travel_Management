@@ -8,6 +8,7 @@ use App\Http\Requests\SendContactRequest;
 use Mail;
 use Flash;
 use App\Models\Activity;
+use App\Models\Tour;
 
 class ContactController extends Controller
 {
@@ -19,7 +20,8 @@ class ContactController extends Controller
      */
     public function index(Request $request) {
         $types = Activity::select('types_id')->distinct()->get();
-    	return view('frontend.contacts.index', compact('types'));
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+    	return view('frontend.contacts.index', compact('types', 'categories'));
     }
 
     /**

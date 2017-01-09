@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
+Route::resource('tours-travel', 'Frontend\TourController');
+
+Route::get('category/{category}', ['as' => 'tours-travel.filter', 'uses' => 'Frontend\TourController@filter']);
+
 Route::resource('things-to-do', 'Frontend\ActivityController');
 
 Route::get('activities/{type}', ['as' => 'activities.filter', 'uses' => 'Frontend\ActivityController@filter']);

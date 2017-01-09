@@ -27,7 +27,7 @@
         <h2 class="head1">Hanoi Tour</h2>
         <ul class="list">
         @foreach($categories as $category)
-          <li><a href="#"> {{ $category->category_tours->name }}</a></li>
+          <li><a href="{{ route('tours-travel.filter', $category->category_tours_id) }}"> {{ $category->category_tours->name }}</a></li>
         @endforeach 
         </ul>
         <h2 class="head1">Travel with us</h2>
