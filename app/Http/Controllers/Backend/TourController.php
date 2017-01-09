@@ -135,13 +135,15 @@ class TourController extends AppBaseController
     {
         $tour = $this->tourRepository->findWithoutFail($id);
 
+        $images = $this->imageRepository->findWhere(['tours_id' => $id]);
+
         if (empty($tour)) {
             Flash::error('Tour not found');
 
             return redirect(route('tours.index'));
         }
 
-        return view('backend.tours.show')->with('tour', $tour);
+        return view('backend.tours.show', compact('tour', 'images'));
     }
 
     /**
@@ -165,13 +167,15 @@ class TourController extends AppBaseController
 
         $places = $this->placeRepository->all();
 
+        $images = $this->imageRepository->findWhere(['tours_id' => $id]);
+
         if (empty($tour)) {
             Flash::error('Tour not found');
 
             return redirect(route('tours.index'));
         }
 
-        return view('backend.tours.edit', compact('tour', 'times', 'prices', 'itineraries', 'categoryTours', 'places'));
+        return view('backend.tours.edit', compact('tour', 'times', 'prices', 'itineraries', 'categoryTours', 'places', 'images'));
     }
 
     /**
@@ -188,6 +192,28 @@ class TourController extends AppBaseController
 
         $check = $request->input('check_list');
 
+        $input = $request->all();
+        $token = $input['_token'];
+        
+        $data = array('_token' => $token,'name' => '', 'tours_id'=> $id);
+
+        if ($request->hasFile('image')) {
+            $images = $this->imageRepository->findWhere(['tours_id' => $id]);
+            foreach($images as $image){
+                $this->imageRepository->delete($image->id);
+            }
+
+            $edit_images = $request->file('image');
+            foreach($edit_images as $image){
+                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
+
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }
+        }
+
         if (empty($tour)) {
             Flash::error('Tour not found');
 
@@ -197,6 +223,8 @@ class TourController extends AppBaseController
         $tour = $this->tourRepository->update($request->all(), $id);
 
         $tour->places()->sync($check);
+
+        // $images = $this->imageRepository->update($edit_images);
 
         Flash::success('Tour updated successfully.');
 
