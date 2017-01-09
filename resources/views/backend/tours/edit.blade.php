@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($tour, ['route' => ['tours.update', $tour->id], 'method' => 'patch']) !!}
+                   {!! Form::model($tour, ['route' => ['tours.update', $tour->id], 'method' => 'patch', 'files' => 'true']) !!}
 
                         @include('backend.tours.edit_fields')
 
@@ -20,4 +20,8 @@
            </div>
        </div>
    </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ url('backend/js/displayimages.js')}}"></script>
 @endsection

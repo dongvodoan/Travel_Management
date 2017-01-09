@@ -25,6 +25,6 @@ class UpdateTourRequest extends FormRequest
      */
     public function rules()
     {
-        return Tour::$rules;
+        return Tour::$update_rules;
     }
 }

@@ -25,6 +25,6 @@ class CreateTourRequest extends FormRequest
      */
     public function rules()
     {
-        return Tour::$rules;
+        return Tour::$create_rules;
     }
 }
