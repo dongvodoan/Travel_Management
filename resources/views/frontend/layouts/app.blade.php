@@ -15,7 +15,7 @@
 <div class="main">
   <header>
     <div class="container_12">
-      <div class="grid_12">
+      <div class="col col-lg-12">
         <h1><a href="{{ route('home-travel.index') }}"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a></h1>
         <div class="menu_block">
           <nav>
@@ -39,9 +39,11 @@
       <nav>
         <ul>
           <li class="{{ Request::is('/*') || Request::is('home-travel*')? 'current' : '' }}"><a href="{{ route('home-travel.index') }}">Home</a></li>
-          <li><a href="tours.html">Tours</a></li>
+          <li class="{{ Request::is('tours-travel*') || Request::is('tour-category*') ? 'current' : '' }}">
+            <a href="{{ route('tours-travel.index') }}">Tours</a>
+          </li>
           <li><a href="news.html">Day trips</a></li>
-          <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
+          <li class="{{ Request::is('things-to-do*') || Request::is('tour-activity-type*') ? 'current' : '' }}">
             <a href="{{ route('things-to-do.index') }}">Things to do</a>
           </li>
           <li class="{{ Request::is('about-us*') || Request::is('travel-us*') ? 'current' : '' }}">

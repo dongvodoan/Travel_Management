@@ -14,9 +14,13 @@ Route::get('/', 'Frontend\HomeTravelController@index');
 
 Route::resource('home-travel', 'Frontend\HomeTravelController');
 
+Route::resource('tours-travel', 'Frontend\TourController');
+
+Route::get('tour-category/{category}', ['as' => 'tours-travel.filter', 'uses' => 'Frontend\TourController@filter']);
+
 Route::resource('things-to-do', 'Frontend\ActivityController');
 
-Route::get('activities/{type}', ['as' => 'activities.filter', 'uses' => 'Frontend\ActivityController@filter']);
+Route::get('tour-activity-type/{type}', ['as' => 'activities.filter', 'uses' => 'Frontend\ActivityController@filter']);
 
 Route::resource('travel-us', 'Frontend\TravelUsController');
 

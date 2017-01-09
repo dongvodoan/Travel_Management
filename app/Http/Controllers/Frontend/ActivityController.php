@@ -10,6 +10,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Activity;
 use App\Repositories\ImageRepository;
+use App\Models\Tour;
 
 class ActivityController extends AppBaseController
 {
@@ -40,7 +41,9 @@ class ActivityController extends AppBaseController
         $this->imageRepository->pushCriteria(new RequestCriteria($request));
         $images = $this->imageRepository->all();
 
-        return view('frontend.activities.index', compact('activities', 'types', 'images'));
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        return view('frontend.activities.index', compact('activities', 'types', 'images', 'categories'));
     }
 
     /**
@@ -79,13 +82,15 @@ class ActivityController extends AppBaseController
 
         $types = Activity::select('types_id')->distinct()->get();
 
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('things-to-do.index'));
         }
 
-        return view('frontend.activities.show', compact('item', '$images', 'types'));
+        return view('frontend.activities.show', compact('item', '$images', 'types', 'categories'));
     }
 
     /**
@@ -123,7 +128,7 @@ class ActivityController extends AppBaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * find to type.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -138,6 +143,8 @@ class ActivityController extends AppBaseController
         $this->imageRepository->pushCriteria(new RequestCriteria($request));
         $images = $this->imageRepository->all();
 
-        return view('frontend.activities.index', compact('activities', 'types', 'images'));
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        return view('frontend.activities.index', compact('activities', 'types', 'images', 'categories'));
     }
 }
