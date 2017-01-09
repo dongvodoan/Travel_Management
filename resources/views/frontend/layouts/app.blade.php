@@ -16,7 +16,7 @@
   <header>
     <div class="container_12">
       <div class="grid_12">
-        <h1><a href="index.html"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a></h1>
+        <h1><a href="{{ route('home-travel.index') }}"><img src="{{ url('frontend/images/logo.png') }}" alt=""></a></h1>
         <div class="menu_block">
           <nav>
              @include('frontend.layouts.partials.navbar')
@@ -38,7 +38,7 @@
       <div class="socials"> <a href="#"></a> <a href="#"></a> <a href="#"></a> </div>
       <nav>
         <ul>
-          <li class="current"><a href="index.html">Home</a></li>
+          <li class="{{ Request::is('/*') || Request::is('home-travel*')? 'current' : '' }}"><a href="{{ route('home-travel.index') }}">Home</a></li>
           <li><a href="tours.html">Tours</a></li>
           <li><a href="news.html">Day trips</a></li>
           <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">

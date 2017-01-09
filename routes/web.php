@@ -10,10 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('/', 'Frontend\HomeTravelController@index');
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::resource('home-travel', 'Frontend\HomeTravelController');
 
 Route::resource('things-to-do', 'Frontend\ActivityController');
 

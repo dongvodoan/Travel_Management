@@ -1,5 +1,5 @@
 <ul class="sf-menu">
-  <li class="current"><a href="index.html">Home</a></li>
+  <li class="{{ Request::is('/*') || Request::is('home-travel*')? 'current' : '' }}"><a href="{{ route('home-travel.index') }}">Home</a></li>
   <li class="with_ul"><a href="tours.html">Tours</a>
     <ul>
       <li><a href="#"> cuisine</a></li>
