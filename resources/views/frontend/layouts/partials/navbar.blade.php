@@ -1,5 +1,5 @@
 <ul class="sf-menu">
-  <li class="current"><a href="index.html">Home</a></li>
+  <li class="{{ Request::is('/*') || Request::is('home-travel*')? 'current' : '' }}"><a href="{{ route('home-travel.index') }}">Home</a></li>
   <li  class="{{ Request::is('tours-travel*') || Request::is('category*') ? 'current' : '' }}">
   <a href="{{ route('tours-travel.index') }}" style="padding-left: 25px;padding-right: 25px;">Tours</a>
     <ul>

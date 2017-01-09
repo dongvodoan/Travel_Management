@@ -44,11 +44,11 @@ class Tour extends Model
     ];
 
     /**
-     * Validation rules
+     * Validation rules create
      *
      * @var array
      */
-    public static $rules = [
+    public static $create_rules = [
         'title' => 'required|max:200|min:10',
         'describe' => 'required|max:500|min:10',
         'times_id' => 'required',
@@ -57,6 +57,22 @@ class Tour extends Model
         'category_tours_id' => 'required',
         'check_list' => 'required',
         'image' => 'required',
+        'image.*' => 'mimes:jpeg,jpg,png|max:8192' 
+    ];
+
+    /**
+     * Validation rules update
+     *
+     * @var array
+     */
+    public static $update_rules = [
+        'title' => 'required|max:200|min:10',
+        'describe' => 'required|max:500|min:10',
+        'times_id' => 'required',
+        'prices_id' => 'required',
+        'itineraries_id' => 'required',
+        'category_tours_id' => 'required',
+        'check_list' => 'required',
         'image.*' => 'mimes:jpeg,jpg,png|max:8192' 
     ];
 
