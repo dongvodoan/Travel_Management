@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Tour;
 
 class HomeTravelController extends AppBaseController
 {
@@ -17,7 +18,9 @@ class HomeTravelController extends AppBaseController
     public function index()
     {
         $types = Activity::select('types_id')->distinct()->get();
-        return view('frontend.index', compact('types'));
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        return view('frontend.index', compact('types', 'categories'));
     }
 
     /**

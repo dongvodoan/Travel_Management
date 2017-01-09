@@ -1,6 +1,6 @@
 <ul class="sf-menu">
   <li class="{{ Request::is('/*') || Request::is('home-travel*')? 'current' : '' }}"><a href="{{ route('home-travel.index') }}">Home</a></li>
-  <li  class="{{ Request::is('tours-travel*') || Request::is('category*') ? 'current' : '' }}">
+  <li  class="{{ Request::is('tours-travel*') || Request::is('tour-category*') ? 'current' : '' }}">
   <a href="{{ route('tours-travel.index') }}" style="padding-left: 25px;padding-right: 25px;">Tours</a>
     <ul>
       @foreach($categories as $category)
@@ -10,7 +10,7 @@
   </li>
   <li><a href="news.html">Day trips</a></li>
   <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
-  <li class="{{ Request::is('things-to-do*') || Request::is('activities*') ? 'current' : '' }}">
+  <li class="{{ Request::is('things-to-do*') || Request::is('tour-activity-type*') ? 'current' : '' }}">
     <a href="{{ route('things-to-do.index') }}">Things to do</a>
     <ul>
       @foreach($types as $type)

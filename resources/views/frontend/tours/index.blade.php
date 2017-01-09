@@ -5,6 +5,8 @@
 
 @section('css')
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url('frontend/css/style.css') }}">
 @endsection
 
 @section('content')
@@ -28,7 +30,7 @@
                 {!! $place->name !!},
             </span> 
             @endforeach</label></div>
-          <p>{{ Util::theExcerpt($tour->describe, 200) }}</p>
+          <p>{{ Util::theExcerpt($tour->describe, 10) }}</p>
           <a href="{{-- {!! route('things-to-do.show', [$tour->id]) !!} --}}" class="btn">More</a> </div>
       </div>
         <div class="clear"></div>
