@@ -13,8 +13,8 @@
     <tbody>
     @foreach($tours as $tour)
         <tr>
-            <td>{!! $tour->title !!}</td>
-            <td>{!! Util::theExcerpt($tour->describe) !!}</td>
+            <td>{!! Util::theExcerpt($tour->title, 13) !!}</td>
+            <td>{!! Util::theExcerpt($tour->describe, 100) !!}</td>
             <td>{!! $tour->times->time !!}</td>
             <td>{!! $tour->prices->title !!}</td>
             <td>{!! $tour->itineraries->title !!}</td>
