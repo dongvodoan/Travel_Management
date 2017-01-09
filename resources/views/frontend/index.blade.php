@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('css')
+  <link rel="stylesheet" href="{{ url('frontend/css/style.css') }}">
 	<link rel="stylesheet" href="{{ url('frontend/css/slider.css') }}">
 @endsection
 
