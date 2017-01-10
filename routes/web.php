@@ -61,3 +61,5 @@ Route::resource('itineraries', 'Backend\ItineraryController');
 Route::resource('tours', 'Backend\TourController');
 
 Route::resource('places', 'Backend\PlaceController');
+
+Route::resource('users', 'Backend\UserController');
