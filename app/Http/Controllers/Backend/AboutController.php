@@ -18,6 +18,7 @@ class AboutController extends AppBaseController
 
     public function __construct(AboutRepository $aboutRepo)
     {
+        $this->middleware('auth');
         $this->aboutRepository = $aboutRepo;
     }
 

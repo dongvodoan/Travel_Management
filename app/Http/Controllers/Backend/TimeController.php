@@ -18,6 +18,7 @@ class TimeController extends AppBaseController
 
     public function __construct(TimeRepository $timeRepo)
     {
+        $this->middleware('auth');
         $this->timeRepository = $timeRepo;
     }
 

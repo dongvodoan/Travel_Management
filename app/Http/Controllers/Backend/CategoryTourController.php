@@ -18,6 +18,7 @@ class CategoryTourController extends AppBaseController
 
     public function __construct(CategoryTourRepository $categoryTourRepo)
     {
+        $this->middleware('auth');
         $this->categoryTourRepository = $categoryTourRepo;
     }
 
