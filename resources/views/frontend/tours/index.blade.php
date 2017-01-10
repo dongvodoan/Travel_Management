@@ -31,7 +31,7 @@
             </span> 
             @endforeach</label></div>
           <p>{{ Util::theExcerpt($tour->describe, 10) }}</p>
-          <a href="{{-- {!! route('things-to-do.show', [$tour->id]) !!} --}}" class="btn">More</a> </div>
+          <a href="{!! route('tours-travel.show', [$tour->id]) !!}" class="btn">More</a> </div>
       </div>
         <div class="clear"></div>
       @endforeach

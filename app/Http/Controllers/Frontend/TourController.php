@@ -10,15 +10,21 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\Tour;
 use App\Models\Activity;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\ImageRepository;
 
 class TourController extends AppBaseController
 {
     /** @var  TourRepository */
     private $tourRepository;
 
-    public function __construct(TourRepository $tourRepo)
+    /** @var  ImageRepository */
+    private $imageRepository;
+
+
+    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
     {
         $this->tourRepository = $tourRepo;
+        $this->imageRepository = $imageRepo;
        
     }
     /**
@@ -65,9 +71,17 @@ class TourController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $tour = $this->tourRepository->findWithoutFail($id);
+
+        $images = $this->imageRepository->findWhere(['tours_id' => $id]);
+
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        $types = Activity::select('types_id')->distinct()->get();
+
+        return view('frontend.tours.show', compact('categories', 'types', 'tour', 'images'));
     }
 
     /**
