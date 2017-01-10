@@ -1,18 +1,19 @@
+<?php use App\Components\Util; ?>
 <table class="table table-responsive" id="activities-table">
     <thead>
         <th>Title</th>
         <th>Describe</th>
         <th>Content</th>
-        <th>Types Id</th>
+        <th>Types Name</th>
         <th>Action</th>
     </thead>
     <tbody>
     @foreach($activities as $activity)
         <tr>
-            <td>{!! $activity->title !!}</td>
-            <td>{!! $activity->describe !!}</td>
-            <td>{!! $activity->content !!}</td>
-            <td>{!! $activity->types_id !!}</td>
+            <td>{{ $activity->title }}</td>
+            <td>{!! Util::theExcerpt($activity->describe) !!}</td>
+            <td>{!! Util::theExcerpt($activity->content) !!}</td>
+            <td>{!! $activity->types->name !!}</td>
             <td style="width: 80px;">
                 {!! Form::open(['route' => ['activities.destroy', $activity->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
