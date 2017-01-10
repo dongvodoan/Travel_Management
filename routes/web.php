@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::resource('things-to-do', 'Frontend\ActivityController');
 
-Route::get('activities/{type}', ['as' => 'activities.filter', 'uses' => 'Frontend\ActivityController@filter']);
+// Route::get('activities/{type}', ['as' => 'activities.filter', 'uses' => 'Frontend\ActivityController@filter']);
 
 Route::resource('travel-us', 'Frontend\TravelUsController');
 

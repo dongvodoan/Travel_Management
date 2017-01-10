@@ -44,11 +44,24 @@ class Activity extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'descibe text textarea',
+        'title' => 'required|max:200|min:3',
         'describe' => 'required',
-        'content' => 'required'
+        'content' => 'required',
+        'image' => 'required',
+        'image.*' => 'mimes:jpeg,jpg,png|max:8192'
     ];
 
+     /**
+     * Validation rules update
+     *
+     * @var array
+     */
+    public static $update_rules = [
+        'title' => 'required|max:200|min:3',
+        'describe' => 'required',
+        'content' => 'required',
+        'image.*' => 'mimes:jpeg,jpg,png|max:8192'
+    ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
