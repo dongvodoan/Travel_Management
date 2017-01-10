@@ -18,6 +18,7 @@ class PriceController extends AppBaseController
 
     public function __construct(PriceRepository $priceRepo)
     {
+        $this->middleware('auth');
         $this->priceRepository = $priceRepo;
     }
 

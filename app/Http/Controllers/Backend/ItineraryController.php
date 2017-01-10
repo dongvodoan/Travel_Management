@@ -18,6 +18,7 @@ class ItineraryController extends AppBaseController
 
     public function __construct(ItineraryRepository $itineraryRepo)
     {
+        $this->middleware('auth');
         $this->itineraryRepository = $itineraryRepo;
     }
 

@@ -20,6 +20,7 @@ class ActivityController extends AppBaseController
 
     public function __construct(ActivityRepository $activityRepo, TypeRepository $typeRepo, ImageRepository $imageRepo)
     {
+        $this->middleware('auth');
         $this->activityRepository = $activityRepo;
         $this->typeRepository = $typeRepo;
         $this->imageRepository = $imageRepo;

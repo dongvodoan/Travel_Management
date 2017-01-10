@@ -23,6 +23,7 @@ class ImageController extends AppBaseController
 
     public function __construct(ImageRepository $imageRepo, ActivityRepository $activityRepo,TourRepository $tourRepo)
     {
+        $this->middleware('auth');
         $this->imageRepository = $imageRepo;
         $this->activityRepository = $activityRepo;
         $this->tourRepository = $tourRepo;

@@ -34,6 +34,7 @@ class TourController extends AppBaseController
 
     public function __construct(TourRepository $tourRepo, TimeRepository $timeRepo, PriceRepository $priceRepo, ItineraryRepository $itineraryRepo, CategoryTourRepository $categoryTourRepo, PlaceRepository $placeRepo, ImageRepository $imageRepo)
     {
+        $this->middleware('auth');
         $this->tourRepository = $tourRepo;
         $this->timeRepository = $timeRepo;
         $this->priceRepository = $priceRepo;

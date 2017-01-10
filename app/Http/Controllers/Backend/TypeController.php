@@ -18,6 +18,7 @@ class TypeController extends AppBaseController
 
     public function __construct(TypeRepository $typeRepo)
     {
+        $this->middleware('auth');
         $this->typeRepository = $typeRepo;
     }
 
