@@ -1,9 +1,12 @@
+<?php use App\Components\Util; ?>
 @extends('frontend.layouts.app')
 
 @section('title') | Things to do @endsection
 
 @section('css')
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url('frontend/css/style.css') }}">
 @endsection
 
 @section('content')
@@ -19,7 +22,7 @@
         <img style="width: 200px; height: 150px;" src="@foreach($images as $image) @if($activity->id===$image->activities_id) {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="" class="img_inner fleft">
         <div class="extra_wrapper">
           <h3 style="font-size: 22px;">{{ $activity->title }}</h3>
-          <p>{{ $activity->describe }}</p>
+          <p>{{ Util::theExcerpt($activity->describe, 200) }}</p>
           <a href="{!! route('things-to-do.show', [$activity->id]) !!}" class="btn">More</a> </div>
       </div>
         <div class="clear"></div>

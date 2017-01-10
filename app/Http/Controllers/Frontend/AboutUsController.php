@@ -44,8 +44,7 @@ class AboutUsController extends AppBaseController
         $about_us = $this->aboutRepository->findWhere(['title' => 'about us']);
 
         $types = Activity::select('types_id')->distinct()->get();
-        
-        
+               
         return view('frontend.abouts.index', compact('abouts', 'travels', 'categories', 'about_us', 'types'));
     }
 
