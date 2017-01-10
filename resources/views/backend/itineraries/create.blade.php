@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection 
 
 @section('scripts')
     <script src="{{ url('backend/js/vendor.js') }}"></script>

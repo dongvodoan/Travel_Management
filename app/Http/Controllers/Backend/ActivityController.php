@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\CreateActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
 use App\Repositories\ActivityRepository;
+use App\Repositories\TypeRepository;
+use App\Repositories\ImageRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -16,9 +18,11 @@ class ActivityController extends AppBaseController
     /** @var  ActivityRepository */
     private $activityRepository;
 
-    public function __construct(ActivityRepository $activityRepo)
+    public function __construct(ActivityRepository $activityRepo, TypeRepository $typeRepo, ImageRepository $imageRepo)
     {
         $this->activityRepository = $activityRepo;
+        $this->typeRepository = $typeRepo;
+        $this->imageRepository = $imageRepo;
     }
 
     /**
@@ -43,7 +47,9 @@ class ActivityController extends AppBaseController
      */
     public function create()
     {
-        return view('backend.activities.create');
+        $types = $this->typeRepository->all();
+
+        return view('backend.activities.create')->with('types', $types);
     }
 
     /**
@@ -57,11 +63,37 @@ class ActivityController extends AppBaseController
     {
         $input = $request->all();
 
-        $activity = $this->activityRepository->create($input);
+        $token = $input['_token']; 
+               
+        if ($request->hasFile('image')) {
+            $activities = $this->activityRepository->create($input);
 
-        Flash::success('Activity saved successfully.');
+            $activities = $this->activityRepository->all()->last();
 
-        return redirect(route('activities.index'));
+            $activities_id = $activities['id'];
+
+            $data = array('_token' => $token,'name' => '', 'activities_id'=> $activities_id);
+        
+            $images = $request->file('image');
+            
+            foreach($images as $image){
+                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
+
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }
+            Flash::success('Activity saved successfully.');
+
+            return redirect(route('activities.index'));      
+        }
+
+        // $activity = $this->activityRepository->create($input);
+
+        Flash::error('Activity saved unsuccessfully.');
+
+        return redirect(route('activities.index')); 
     }
 
     /**
@@ -75,13 +107,16 @@ class ActivityController extends AppBaseController
     {
         $activity = $this->activityRepository->findWithoutFail($id);
 
+        $images = $this->imageRepository->findWhere(['activities_id' => $id]);
+
+
         if (empty($activity)) {
             Flash::error('Activity not found');
 
             return redirect(route('activities.index'));
         }
 
-        return view('backend.activities.show')->with('activity', $activity);
+        return view('backend.activities.show', compact('activity', 'images'));
     }
 
     /**
@@ -94,6 +129,8 @@ class ActivityController extends AppBaseController
     public function edit($id)
     {
         $activity = $this->activityRepository->findWithoutFail($id);
+        $images = $this->imageRepository->findWhere(['activities_id' => $id]);
+        $types = $this->typeRepository->all();
 
         if (empty($activity)) {
             Flash::error('Activity not found');
@@ -101,7 +138,7 @@ class ActivityController extends AppBaseController
             return redirect(route('activities.index'));
         }
 
-        return view('backend.activities.edit')->with('activity', $activity);
+        return view('backend.activities.edit', compact('activity', 'images', 'types'));
     }
 
     /**
@@ -115,6 +152,28 @@ class ActivityController extends AppBaseController
     public function update($id, UpdateActivityRequest $request)
     {
         $activity = $this->activityRepository->findWithoutFail($id);
+
+        $input = $request->all();
+        $token = $input['_token'];
+        
+        $data = array('_token' => $token,'name' => '', 'activities_id'=> $id);
+
+        if ($request->hasFile('image')) {
+            $images = $this->imageRepository->findWhere(['activities_id' => $id]);
+            foreach($images as $image){
+                $this->imageRepository->delete($image->id);
+            }
+
+            $edit_images = $request->file('image');
+            foreach($edit_images as $image){
+                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $data['name'] = $imagename;
+
+                $image->move(public_path(config('path.upload_img')), $imagename);
+                
+                $image = $this->imageRepository->create($data);
+            }
+        }
 
         if (empty($activity)) {
             Flash::error('Activity not found');

@@ -5,11 +5,17 @@
 </div>
 
 <!-- Images Field -->
-<div class="col-lg-12">
+<div class="col-lg-12" style="margin-bottom:10px;">
     <div class="form-group">
         {{ Form::file('image[]',['class' => 'control','id' => 'files', 'multiple' => 'multiple']) }}
     </div>
-    <div id="selectedFiles"></div> 
+    <div id="selectedFiles">
+        @foreach ($images as $image)
+            <div class="col col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <img style="border:none; width: 300px; height: 150px;" src="{{ url(config('path.upload_img').$image->name) }}" ></img>
+            </div>
+        @endforeach
+    </div> 
 </div>
 
 <!-- Types Field-->
@@ -17,7 +23,7 @@
     {!! Form::label('types_id', 'Types') !!}
     <select name="types" class="form-control">
     	@foreach($types as $type)
-    	<option value="{!! $type->id !!}">{!! $type->name !!}</option>
+    	<option @if(($type->name)===($activity->types->name)) selected @endif value="{!! $type->id !!}">{!! $type->name !!}</option>
     	@endforeach
     </select>	
 </div>

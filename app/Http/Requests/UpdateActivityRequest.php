@@ -25,6 +25,6 @@ class UpdateActivityRequest extends FormRequest
      */
     public function rules()
     {
-        return Activity::$rules;
+        return Activity::$update_rules;
     }
 }

@@ -40,7 +40,7 @@ class TourController extends AppBaseController
         $this->itineraryRepository = $itineraryRepo;
         $this->categoryTourRepository = $categoryTourRepo;
         $this->placeRepository = $placeRepo;
-        $this->imageRepository = $imageRepo;
+        $this->imageRepository = $imageRepo; 
     }
 
     /**
