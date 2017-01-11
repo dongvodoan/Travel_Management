@@ -84,11 +84,11 @@ class ImageController extends AppBaseController
         if(($input['activities_id']!=null)&&($input['tours_id']!=null)){
             $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
         }
-        $number = 0;
+       
         if ($request->hasFile('image')) {
      
             $images = $request->file('image');
-            
+            $number = 0;
             foreach($images as $image){
   
                 $imagename=time() .'_'.$number. '.'. $image->getClientOriginalExtension();
