@@ -9,6 +9,7 @@ use App\Repositories\TravelRepository;
 use App\Models\Tour;
 use Flash;
 use App\Models\Activity;
+use App\Repositories\TimeRepository;
 
 class AboutUsController extends AppBaseController
 {
@@ -18,10 +19,14 @@ class AboutUsController extends AppBaseController
     /** @var  TravelRepository */
     private $travelRepository;
 
-    public function __construct(AboutRepository $aboutRepo, TravelRepository $travelRepo)
+    /** @var  TimeRepository */
+    private $timeRepository;
+
+    public function __construct(AboutRepository $aboutRepo, TravelRepository $travelRepo, TimeRepository $timeRepo)
     {
         $this->aboutRepository = $aboutRepo;
         $this->travelRepository = $travelRepo;
+        $this->timeRepository = $timeRepo;
     }
 
     /**
@@ -40,8 +45,10 @@ class AboutUsController extends AppBaseController
         $about_us = $this->aboutRepository->findWhere(['title' => 'about us']);
 
         $types = Activity::select('types_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
                
-        return view('frontend.abouts.index', compact('abouts', 'travels', 'categories', 'about_us', 'types'));
+        return view('frontend.abouts.index', compact('abouts', 'travels', 'categories', 'about_us', 'types', 'day_tour'));
     }
 
     /**
@@ -83,13 +90,15 @@ class AboutUsController extends AppBaseController
 
         $types = Activity::select('types_id')->distinct()->get();
 
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('about-us.index'));
         }
 
-        return view('frontend.abouts.show', compact('abouts', 'travels', 'categories', 'item', 'types' ));
+        return view('frontend.abouts.show', compact('abouts', 'travels', 'categories', 'item', 'types', 'day_tour'));
     }
 
     /**

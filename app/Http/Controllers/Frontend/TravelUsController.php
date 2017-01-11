@@ -10,6 +10,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\AboutRepository;
 use App\Models\Tour;
 use App\Models\Activity;
+use App\Repositories\TimeRepository;
 
 class TravelUsController extends AppBaseController
 {
@@ -19,10 +20,14 @@ class TravelUsController extends AppBaseController
     /** @var  AboutRepository */
     private $aboutRepository;
 
-    public function __construct(TravelRepository $travelRepo, AboutRepository $aboutRepo)
+    /** @var  TimeRepository */
+    private $timeRepository;
+
+    public function __construct(TravelRepository $travelRepo, AboutRepository $aboutRepo, TimeRepository $timeRepo)
     {
         $this->travelRepository = $travelRepo;
         $this->aboutRepository = $aboutRepo;
+        $this->timeRepository = $timeRepo;
     }
 
     /**
@@ -74,13 +79,15 @@ class TravelUsController extends AppBaseController
 
         $types = Activity::select('types_id')->distinct()->get();
 
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('about-us.index'));
         }
 
-        return view('frontend.travels.show', compact('abouts', 'travels', 'categories', 'item', 'types' ));
+        return view('frontend.travels.show', compact('abouts', 'travels', 'categories', 'item', 'types', 'day_tour'));
     }
 
     /**
