@@ -1,3 +1,4 @@
+<?php use App\Components\Util; ?>
 @extends('frontend.layouts.app')
 
 @section('css')
@@ -33,12 +34,9 @@
       <div class="grid_5">
         <h2>Hanoi Tour</h2>
         <ul class="list">
-          <li><a href="#">Unlimited consultations and/or planning</a></li>
-          <li><a href="#">Expert advice on traditions, customs, aetiquette</a></li>
-          <li><a href="#">Determine and stay within budget</a></li>
-          <li><a href="#">Choosing the right Wedding Venue</a></li>
-          <li><a href="#">Provide preferred vendor's list</a></li>
-          <li><a href="#">Assist with wedding scheme and design</a></li>
+          @foreach($categories as $category)
+          <li><a href="{{ route('tours-travel.filter', $category->category_tours_id) }}"> {{ $category->category_tours->name }}</a></li>
+          @endforeach 
         </ul>
       </div>
       <div class="clear"></div>
@@ -47,11 +45,10 @@
       </div>
       <div class="grid_5">
         <h2>Hot Tour</h2>
-        <img src="images/page2_img1.jpg" alt="" class="img_inner">
-        <p class="col1">Curabitur in turpisju massa. Donec et nibh non turpis pellentesque suscipit eget. </p>
-        <p>Ghfgop Maecnas cursus fringilla sagittis. Donec eu felis purus, iaculis fringilla ipsum. Inte ger non nulla sem, eget volutpat augue. Curabitur in turpisju massa. Donec et nibh non turpis pellentesque suscipit eget. </p>
-        Donec eu felis purus, iaculis fringilla ipsum. Integer non. nulla sem, eget volutpat augue. Curabitur in turpisju massa. Donec et nibh non turpis pellentesque suscipit eget vel odio. Sed tempus orci tempus libero suscipit elementum. Aliquam consectetur. Ghfgop Maecnas cursus. <br>
-        <a href="#" class="btn m1">More</a> </div>
+        <img src="____________" alt="" class="img_inner">
+        <p class="col1">{{ $tour_hot->title }}</p>
+        <p>{{ $tour_hot->describe }}<br>
+        <a href="{!! route('tours-travel.show', [$tour_hot->id]) !!}" class="btn m1">More</a> </div>
       <div class="grid_5 prefix_2">
         <h2>Testimonials</h2>
         <ul class="carousel2">
@@ -90,41 +87,20 @@
           <h2>Best Choice</h2>
           <a href="#" class="prev"></a><a href="#" class="next"></a>
           <ul class="carousel1">
+             @foreach($tours as $tour)
             <li>
-              <div><img src="images/page1_img1.jpg" alt="">
-                <div class="col1 upp"> <a href="#">Lorem ipsum doamet consectet</a></div>
-                <span> Dorem ipsum dolor amet consectetur</span>
-                <div class="price">45$</div>
+              <div>
+                <img src="_______________________________" alt="">
+                <div class="col1 upp">
+                  <a href="{!! route('tours-travel.show', [$tour->id]) !!}">{{ $tour->title }}</a>
+                </div>
+                <div>
+                  <span>{{ Util::theExcerpt($tour->describe, 30) }}</span>
+                </div>
+                <div class="price">{{ $tour->prices->price }}$</div>
               </div>
             </li>
-            <li>
-              <div><img src="images/page1_img2.jpg" alt="">
-                <div class="col1 upp"> <a href="#">Lorem ipsum doamet consectet</a></div>
-                <span> Dorem ipsum dolor amet consectetur</span>
-                <div class="price">45$</div>
-              </div>
-            </li>
-            <li>
-              <div><img src="images/page1_img3.jpg" alt="">
-                <div class="col1 upp"> <a href="#">Lorem ipsum doamet consectet</a></div>
-                <span> Dorem ipsum dolor amet consectetur</span>
-                <div class="price">45$</div>
-              </div>
-            </li>
-            <li>
-              <div><img src="images/page1_img4.jpg" alt="">
-                <div class="col1 upp"> <a href="#">Lorem ipsum doamet consectet</a></div>
-                <span> Dorem ipsum dolor amet consectetur</span>
-                <div class="price">45$</div>
-              </div>
-            </li>
-            <li>
-              <div><img src="images/page1_img3.jpg" alt="">
-                <div class="col1 upp"> <a href="#">Lorem ipsum doamet consectet</a></div>
-                <span> Dorem ipsum dolor amet consectetur</span>
-                <div class="price">45$</div>
-              </div>
-            </li>
+            @endforeach
           </ul>
         </div>
       </div>

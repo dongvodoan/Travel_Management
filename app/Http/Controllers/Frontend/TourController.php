@@ -11,6 +11,7 @@ use App\Models\Tour;
 use App\Models\Activity;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\ImageRepository;
+use App\Repositories\PriceRepository;
 
 class TourController extends AppBaseController
 {
@@ -20,12 +21,15 @@ class TourController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
+    /** @var  PriceRepository */
+    private $priceRepository;
 
-    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
+
+    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, PriceRepository $priceRepo)
     {
         $this->tourRepository = $tourRepo;
         $this->imageRepository = $imageRepo;
-       
+        $this->priceRepository = $priceRepo;
     }
     /**
      * Display a listing of the resource.
@@ -40,8 +44,9 @@ class TourController extends AppBaseController
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
         $types = Activity::select('types_id')->distinct()->get();
+        $prices = Price::select('price')->distinct()->get();
 
-        return view('frontend.tours.index', compact('tours', 'categories', 'types'));
+        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'prices'));
     }
 
     /**

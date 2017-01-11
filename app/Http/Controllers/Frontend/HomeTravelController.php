@@ -7,9 +7,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Tour;
+use App\Repositories\TourRepository;
+use App\Repositories\ImageRepository;
+use App\Repositories\AboutRepository;
 
 class HomeTravelController extends AppBaseController
 {
+        /** @var  TravelRepository */
+        private $travelRepository;
+        
+        /** @var  ImageRepository */
+        private $imageRepository;
+
+        /** @var  TourRepository */
+        private $tourRepository;
+
+        public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
+        {
+            $this->tourRepository = $tourRepo;
+            $this->imageRepository = $imageRepo;
+        }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +35,14 @@ class HomeTravelController extends AppBaseController
      */
     public function index()
     {
+        
+        $tours = $this->tourRepository->all();
+        $tour_hot = $this->tourRepository->findWithoutFail(1);
+        $images = $this->imageRepository->all();
         $types = Activity::select('types_id')->distinct()->get();
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.index', compact('types', 'categories'));
+        return view('frontend.index', compact('types', 'categories', 'tours', 'images', 'tour_hot'));
     }
 
     /**
@@ -41,7 +63,7 @@ class HomeTravelController extends AppBaseController
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
