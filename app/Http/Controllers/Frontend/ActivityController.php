@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ActivityRepository;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Activity;
 use App\Repositories\ImageRepository;
 use App\Models\Tour;
+use App\Models\Image;
 
 class ActivityController extends AppBaseController
 {
@@ -31,19 +31,23 @@ class ActivityController extends AppBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->activityRepository->pushCriteria(new RequestCriteria($request));
         $activities = $this->activityRepository->all();
 
         $types = Activity::select('types_id')->distinct()->get();
 
-        $this->imageRepository->pushCriteria(new RequestCriteria($request));
-        $images = $this->imageRepository->all();
-
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.activities.index', compact('activities', 'types', 'images', 'categories'));
+        $images = Image::select('activities_id')->distinct()->get();
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['activities_id' => $image->activities_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
+
+        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories'));
     }
 
     /**
@@ -73,12 +77,9 @@ class ActivityController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
         $item = $this->activityRepository->findWithoutFail($id);
-
-        $this->imageRepository->pushCriteria(new RequestCriteria($request));
-        $images = $this->imageRepository->all();
 
         $types = Activity::select('types_id')->distinct()->get();
 
@@ -90,7 +91,7 @@ class ActivityController extends AppBaseController
             return redirect(route('things-to-do.index'));
         }
 
-        return view('frontend.activities.show', compact('item', '$images', 'types', 'categories'));
+        return view('frontend.activities.show', compact('item', 'types', 'categories'));
     }
 
     /**
@@ -133,18 +134,23 @@ class ActivityController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function filter($id, Request $request)
+    public function filter($id)
     {
-        $this->activityRepository->pushCriteria(new RequestCriteria($request));
+        
         $activities = $this->activityRepository->findWhere(['types_id' => $id]);
 
         $types = Activity::select('types_id')->distinct()->get();
 
-        $this->imageRepository->pushCriteria(new RequestCriteria($request));
-        $images = $this->imageRepository->all();
+        $images = Image::select('activities_id')->distinct()->get();
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['activities_id' => $image->activities_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.activities.index', compact('activities', 'types', 'images', 'categories'));
+        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories'));
     }
 }

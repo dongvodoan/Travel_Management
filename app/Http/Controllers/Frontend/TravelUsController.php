@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TravelRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AboutRepository;
 use App\Models\Tour;
 use App\Models\Activity;
@@ -67,10 +66,8 @@ class TravelUsController extends AppBaseController
     {
         $item = $this->travelRepository->findWithoutFail($id);
 
-        $this->aboutRepository->pushCriteria(new RequestCriteria($request));
         $abouts = $this->aboutRepository->findWhere(['check' => '1']);
 
-        $this->travelRepository->pushCriteria(new RequestCriteria($request));
         $travels = $this->travelRepository->findWhere(['check' => '1']);
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
