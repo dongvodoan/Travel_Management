@@ -182,7 +182,6 @@ class ImageController extends AppBaseController
             $imagename=time().'.'. $img->getClientOriginalExtension();
             $input['name'] = $imagename;
             $img->move(public_path(config('path.upload_img')), $imagename);
-            $number++;
         }
         $image = $this->imageRepository->findWithoutFail($id);
 
