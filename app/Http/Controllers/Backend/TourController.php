@@ -107,13 +107,15 @@ class TourController extends AppBaseController
         
             $images = $request->file('image');
             
+            $number = 0;
             foreach($images as $image){
-                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $imagename=time() . '_'.$input['title'].'_'.$number.'.'. $image->getClientOriginalExtension();
                 $data['name'] = $imagename;
 
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
+                $number++;
             }
             Flash::success('Tour saved successfully.');
 
@@ -205,13 +207,15 @@ class TourController extends AppBaseController
             }
 
             $edit_images = $request->file('image');
+            $number = 0;
             foreach($edit_images as $image){
-                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $imagename=time() . '_'.$input['title'].'_'.$number.'.'. $image->getClientOriginalExtension();
                 $data['name'] = $imagename;
 
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
+                $number++;
             }
         }
 
