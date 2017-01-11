@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TourRepository;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\Tour;
 use App\Models\Activity;
+use App\Models\Image;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\ImageRepository;
 use App\Repositories\PriceRepository;
@@ -36,17 +36,25 @@ class TourController extends AppBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->tourRepository->pushCriteria(new RequestCriteria($request));
+        
         $tours = $this->tourRepository->all();
+
+        
+        $images = Image::select('tours_id')->distinct()->get();
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['tours_id' => $image->tours_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
         $types = Activity::select('types_id')->distinct()->get();
-        $prices = Price::select('price')->distinct()->get();
 
-        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'prices'));
+        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'data_images'));
     }
 
     /**
@@ -76,7 +84,7 @@ class TourController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
         $tour = $this->tourRepository->findWithoutFail($id);
 
@@ -129,15 +137,22 @@ class TourController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function filter($id, Request $request)
+    public function filter($id)
     {
-        $this->tourRepository->pushCriteria(new RequestCriteria($request));
         $tours = $this->tourRepository->findWhere(['category_tours_id' => $id]);
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
         $types = Activity::select('types_id')->distinct()->get();
 
-        return view('frontend.tours.index', compact('tours', 'categories', 'types'));
+        $images = Image::select('tours_id')->distinct()->get();
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['tours_id' => $image->tours_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
+
+        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'data_images'));
     }
 }
