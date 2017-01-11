@@ -177,10 +177,9 @@ class ImageController extends AppBaseController
         if(($activities_id!=null)&&($tours_id!=null)){
             $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> $activities_id);
         }
-        $number = 0;
         if ($request->hasFile('image')) {
             $img = $request->file('image');
-            $imagename=time().'_'.$number.'.'. $img->getClientOriginalExtension();
+            $imagename=time().'.'. $img->getClientOriginalExtension();
             $input['name'] = $imagename;
             $img->move(public_path(config('path.upload_img')), $imagename);
             $number++;
