@@ -77,7 +77,7 @@
              @foreach($tours as $tour)
             <li>
               <div>
-                <img style="width: 200px; height: 150px;" src="@foreach($images as $image) @if($tour->id===$image->tours_id) 
+                <img style="width: 200px; height: 150px;" src="@foreach($data_images as $image) @if($tour->id===$image->tours_id) 
                 {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="">
                 <div class="col1 upp">
                   <a href="{!! route('tours-travel.show', [$tour->id]) !!}">{{ $tour->title }}</a>

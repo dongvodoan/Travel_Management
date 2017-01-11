@@ -21,15 +21,10 @@ class TourController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
-    /** @var  PriceRepository */
-    private $priceRepository;
-
-
-    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, PriceRepository $priceRepo)
+    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
     {
         $this->tourRepository = $tourRepo;
         $this->imageRepository = $imageRepo;
-        $this->priceRepository = $priceRepo;
     }
     /**
      * Display a listing of the resource.
@@ -38,10 +33,8 @@ class TourController extends AppBaseController
      */
     public function index()
     {
-        
         $tours = $this->tourRepository->all();
 
-        
         $images = Image::select('tours_id')->distinct()->get();
         $i=0;
         foreach($images as $image){
