@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Repositories\TourRepository;
 use App\Repositories\ImageRepository;
 use App\Repositories\AboutRepository;
+use App\Repositories\TimeRepository;
 
 class HomeTravelController extends AppBaseController
 { 
@@ -23,11 +24,15 @@ class HomeTravelController extends AppBaseController
         /** @var  AboutRepository */
         private $aboutRepository;
 
-        public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, AboutRepository $aboutRepo)
+        /** @var  TimeRepository */
+        private $timeRepository;
+
+        public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, AboutRepository $aboutRepo, TimeRepository $timeRepo)
         {
             $this->tourRepository = $tourRepo;
             $this->imageRepository = $imageRepo;
             $this->aboutRepository = $aboutRepo;
+            $this->timeRepository = $timeRepo;
         }
 
     /**
@@ -45,6 +50,9 @@ class HomeTravelController extends AppBaseController
         $tour_hot = $this->tourRepository->findWithoutFail(1);
 
         $images = Image::select('tours_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         $i=0;
         foreach($images as $image){
             $first_image = $this->imageRepository->findWhere(['tours_id' => $image->tours_id])->first();
@@ -55,7 +63,7 @@ class HomeTravelController extends AppBaseController
         $types = Activity::select('types_id')->distinct()->get();
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.index', compact('types', 'categories', 'tours', 'data_images', 'tour_hot', 'hot_image', 'abouts'));
+        return view('frontend.index', compact('types', 'categories', 'tours', 'data_images', 'tour_hot', 'hot_image', 'abouts', 'day_tour'));
     }
 
     /**

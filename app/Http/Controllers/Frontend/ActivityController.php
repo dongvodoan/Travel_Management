@@ -11,6 +11,7 @@ use App\Models\Activity;
 use App\Repositories\ImageRepository;
 use App\Models\Tour;
 use App\Models\Image;
+use App\Repositories\TimeRepository;
 
 class ActivityController extends AppBaseController
 {
@@ -20,10 +21,14 @@ class ActivityController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
-    public function __construct(ActivityRepository $activityRepo, ImageRepository $imageRepo)
+    /** @var  TimeRepository */
+    private $timeRepository;
+
+    public function __construct(ActivityRepository $activityRepo, ImageRepository $imageRepo, TimeRepository $timeRepo)
     {
         $this->activityRepository = $activityRepo;
         $this->imageRepository = $imageRepo;
+        $this->timeRepository = $timeRepo;
     }
 
     /**
@@ -40,6 +45,9 @@ class ActivityController extends AppBaseController
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
         $images = Image::select('activities_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         $i=0;
         foreach($images as $image){
             $first_image = $this->imageRepository->findWhere(['activities_id' => $image->activities_id])->first();
@@ -47,7 +55,7 @@ class ActivityController extends AppBaseController
             $i++;
         }
 
-        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories'));
+        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories', 'day_tour'));
     }
 
     /**
@@ -85,13 +93,15 @@ class ActivityController extends AppBaseController
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         if (empty($item)) {
             Flash::error('About not found');
 
             return redirect(route('things-to-do.index'));
         }
 
-        return view('frontend.activities.show', compact('item', 'types', 'categories'));
+        return view('frontend.activities.show', compact('item', 'types', 'categories', 'day_tour'));
     }
 
     /**
@@ -142,6 +152,9 @@ class ActivityController extends AppBaseController
         $types = Activity::select('types_id')->distinct()->get();
 
         $images = Image::select('activities_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+
         $i=0;
         foreach($images as $image){
             $first_image = $this->imageRepository->findWhere(['activities_id' => $image->activities_id])->first();
@@ -151,6 +164,6 @@ class ActivityController extends AppBaseController
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories'));
+        return view('frontend.activities.index', compact('activities', 'types', 'data_images', 'categories', 'day_tour'));
     }
 }

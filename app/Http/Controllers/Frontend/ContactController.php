@@ -9,9 +9,17 @@ use Mail;
 use Flash;
 use App\Models\Activity;
 use App\Models\Tour;
+use App\Repositories\TimeRepository;
 
 class ContactController extends Controller
 {
+    /** @var  TimeRepository */
+    private $timeRepository;
+
+    public function __construct(TimeRepository $timeRepo)
+    {
+        $this->timeRepository = $timeRepo;
+    }
 	/**
      * Display a page of the Contact.
      *
@@ -21,7 +29,8 @@ class ContactController extends Controller
     public function index(Request $request) {
         $types = Activity::select('types_id')->distinct()->get();
         $categories = Tour::select('category_tours_id')->distinct()->get();
-    	return view('frontend.contacts.index', compact('types', 'categories'));
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+    	return view('frontend.contacts.index', compact('types', 'categories', 'day_tour'));
     }
 
     /**
