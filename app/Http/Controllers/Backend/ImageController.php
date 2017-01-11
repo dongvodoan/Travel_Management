@@ -84,19 +84,21 @@ class ImageController extends AppBaseController
         if(($input['activities_id']!=null)&&($input['tours_id']!=null)){
             $data = array('_token' => $input['_token'], 'tours_id'=> $input['tours_id'], 'activities_id'=> $input['activities_id'], 'image' => $input['image'] );
         }
+       
         if ($request->hasFile('image')) {
      
             $images = $request->file('image');
-            
+            $number = 0;
             foreach($images as $image){
   
-                $imagename=time() . '.'. $image->getClientOriginalExtension();
+                $imagename=time() .'_'.$number. '.'. $image->getClientOriginalExtension();
                 $data['name'] = $imagename;
 
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
-            }       
+                $number++;
+            }
         }
 
         Flash::success('Image saved successfully.');
@@ -175,7 +177,6 @@ class ImageController extends AppBaseController
         if(($activities_id!=null)&&($tours_id!=null)){
             $input = array('_token' => $input['_token'], 'tours_id'=> $tours_id, 'activities_id'=> $activities_id);
         }
-
         if ($request->hasFile('image')) {
             $img = $request->file('image');
             $imagename=time().'.'. $img->getClientOriginalExtension();
