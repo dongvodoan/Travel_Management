@@ -22,10 +22,14 @@ class HomeTravelController extends AppBaseController
         /** @var  TourRepository */
         private $tourRepository;
 
-        public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
+        /** @var  AboutRepository */
+        private $aboutRepository;
+
+        public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, AboutRepository $aboutRepo)
         {
             $this->tourRepository = $tourRepo;
             $this->imageRepository = $imageRepo;
+            $this->aboutRepository = $aboutRepo;
         }
 
     /**
@@ -37,12 +41,14 @@ class HomeTravelController extends AppBaseController
     {
         
         $tours = $this->tourRepository->all();
+        $abouts = $this->aboutRepository->all();
         $tour_hot = $this->tourRepository->findWithoutFail(1);
         $images = $this->imageRepository->all();
+        $hot_image = $this->imageRepository->findWhere(['tours_id' => 1])->first();
         $types = Activity::select('types_id')->distinct()->get();
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        return view('frontend.index', compact('types', 'categories', 'tours', 'images', 'tour_hot'));
+        return view('frontend.index', compact('types', 'categories', 'tours', 'images', 'tour_hot', 'hot_image', 'abouts'));
     }
 
     /**

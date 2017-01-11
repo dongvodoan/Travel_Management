@@ -45,37 +45,24 @@
       </div>
       <div class="grid_5">
         <h2>Hot Tour</h2>
-        <img src="____________" alt="" class="img_inner">
-        <p class="col1">{{ $tour_hot->title }}</p>
+        <img style="width: 375px; height: 220px;" src="{!! url(config('path.upload_img').$hot_image->name) !!}" alt="" class="img_inner">
+        <h3 style="margin-bottom:20px;text-transform:uppercase" >{{ $tour_hot->title }}</h3>
         <p>{{ $tour_hot->describe }}<br>
         <a href="{!! route('tours-travel.show', [$tour_hot->id]) !!}" class="btn m1">More</a> </div>
       <div class="grid_5 prefix_2">
-        <h2>Testimonials</h2>
+        <h2>Abouts</h2>
         <ul class="carousel2">
+        @foreach($abouts as $about)
           <li>
-            <blockquote> <img src="images/page2_img2.png" alt="">
+            <blockquote>
               <div class="extra_wrapper">
-                <div class="title">Sara &amp; Kevin <br>
-                  Jonson</div>
+                <div class="title"><a href="{!! route('about-us.show', [$about->id]) !!}">{{ $about->title }}</a></div><br />
               </div>
               <div class="clear"></div>
-              <p class="col1"><a href="#">Euismod pellentesque in dui. Semper, enim eget eleifend faucibus, sem libero gravida erat, sit amet viverra dui nisl non nulla. Pellentesque in dui euismod. </a></p>
-              <p>Curabitur felis purus, iaculis fringi. ipsum. Integer non nulla sem, eget volutpat augue. Ghfgop Maecnas cursus fringilla sagittis. Donec eu felis purus, iaculis fringilla ipsum. Inte ger non nulla sem, eget volutpat augue. Curabitur in turpisju massa. Donec et nibh non turpis pellentesque suscipit eget vel odio.  Aliquam consectetur. Fringilla ipsum. </p>
-              <p>Ringilla ipsum. Donec et nibh non turpis pellentesque suscipit eget vel odio. Sed tempus orci tempus libero suscipit elementum. Aliquam consectetur. Ghfgop Maecnas cursus fringilla sagittis. Donec eu felis purus, iaculis fringi. ipsum. Integer non nulla sem, eget volutpat augue. Ghfgop pelle ntesque suscipit eget consectetur.</p>
+              <p>{{ Util::theExcerpt($about->content, 600) }}</p>
             </blockquote>
           </li>
-          <li>
-            <blockquote> <img src="images/page2_img2-1.png" alt="">
-              <div class="extra_wrapper">
-                <div class="title">Moira &amp; Brett<br>
-                  Clark</div>
-              </div>
-              <div class="clear"></div>
-              <p class="col1">Pellentesque in dui euismod. Aliquam semper, enim eget eleifend faucibus, sem libero gravida erat, sit amet viverra dui nisl non nulla. Pellentesque in dui euismod nibh suscipi. </p>
-              <p>Donec eu felis purus, iaculis fringi. ipsum. Integer non nulla sem, eget volutpat augue. Ghfgop Maecnas cursus fringilla sagittis. Donec eu felis purus, iaculis fringilla ipsum. Inte ger non nulla sem, eget volutpat augue. Curabitur in turpisju massa. Donec et nibh non turpis pellentesque suscipit eget vel odio.  Aliquam consectetur. Ghfgop Maecnas cursus frin.</p>
-              <p>Curabitur in turpisju massa. Donec et nibh non turpis pellen tesque suscipit eget vel odio. Sed tempus orci tempus libero suscipit elementum. Aliquam consectetur. Ghfgop Maecnas cursus fringilla sagittis. Donec eu felis purus, iaculis fringi. ipsum. Integer non nulla sem, eget volutpat augue. Ghfgop Maecnas cursus fringilla sagittis.</p>
-            </blockquote>
-          </li>
+          @endforeach
         </ul>
         <a href="#" class="next1"></a> <a href="#" class="prev1"></a> </div>
       <div class="clear"></div>
@@ -90,7 +77,8 @@
              @foreach($tours as $tour)
             <li>
               <div>
-                <img src="_______________________________" alt="">
+                <img style="width: 200px; height: 150px;" src="@foreach($images as $image) @if($tour->id===$image->tours_id) 
+                {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="">
                 <div class="col1 upp">
                   <a href="{!! route('tours-travel.show', [$tour->id]) !!}">{{ $tour->title }}</a>
                 </div>
