@@ -31,7 +31,7 @@
           <div class="clear"></div>
         </div>
       </div>
-      <div class="grid_5">
+      <div class="grid_3 prefix_2">
         <h2>Hanoi Tour</h2>
         <ul class="list">
           @foreach($categories as $category)

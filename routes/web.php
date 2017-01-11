@@ -19,6 +19,10 @@ Route::resource('tours-travel', 'Frontend\TourController');
 
 Route::get('daytrip/{time}', ['as' => 'tours-travel.filterTime', 'uses' => 'Frontend\TourController@filterTime']);
 
+Route::get('choice-time/{time}', ['as' => 'tours-travel.filterChoiceTime', 'uses' => 'Frontend\TourController@filterChoiceTime']);
+
+Route::get('find-address/{name}', ['as' => 'tours-travel.filterAddress', 'uses' => 'Frontend\TourController@filterAddress']);
+
 Route::get('tour-category/{category}', ['as' => 'tours-travel.filter', 'uses' => 'Frontend\TourController@filter']);
 
 Route::resource('things-to-do', 'Frontend\ActivityController');

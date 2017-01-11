@@ -22,12 +22,15 @@
         <img style="width: 200px; height: 150px;" src="@foreach($data_images as $image) @if($tour->id===$image->tours_id) {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="" class="img_inner fleft">
         
         <div class="extra_wrapper">
-          <h3 style="font-size: 22px;">{{ $tour->title }}</h3>
+          <h3 style="text-transform:uppercase">{{ $tour->title }}</h3>
           <div class="" style="margin-top:8px;margin-bottom: 8px;"><label>from </label><span style="color: red;"> ${{ $tour->prices->price }}</span> 
-          <i class="fa fa-clock-o " style="margin-left: 20px;margin-top: 3px;"></i><span> {{ $tour->times->time }}</span> 
-          <label><i style="margin-left: 20px;margin-top: 3px;" class="fa fa-map-marker"></i> @foreach($tour->places as $place) 
+          <i class="fa fa-clock-o " style="margin-left: 20px;margin-top: 3px;"></i>
+          <span><a href="{{route('tours-travel.filterChoiceTime',$tour->times->id)}}">{{ $tour->times->time }}</a></span> 
+          <label><i style="margin-left: 20px;margin-top: 3px;" class="fa fa-map-marker"></i> 
+          @foreach($tour->places as $place) 
             <span>
-                {!! $place->name !!},
+                <a href="{{route('tours-travel.filterAddress',$place->id)}}">
+                {!! $place->name !!},</a>
             </span> 
             @endforeach</label></div>
           <p>{{ Util::theExcerpt($tour->describe, 10) }}</p>
