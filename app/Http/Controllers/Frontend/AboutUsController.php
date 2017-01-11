@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\AboutRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\TravelRepository;
 use App\Models\Tour;
 use Flash;
@@ -32,15 +31,12 @@ class AboutUsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->aboutRepository->pushCriteria(new RequestCriteria($request));
         $abouts = $this->aboutRepository->findWhere(['check' => '1']);
 
-        $this->travelRepository->pushCriteria(new RequestCriteria($request));
         $travels = $this->travelRepository->findWhere(['check' => '1']);
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
 
-        $this->aboutRepository->pushCriteria(new RequestCriteria($request));
         $about_us = $this->aboutRepository->findWhere(['title' => 'about us']);
 
         $types = Activity::select('types_id')->distinct()->get();
@@ -79,10 +75,8 @@ class AboutUsController extends AppBaseController
     {
         $item = $this->aboutRepository->findWithoutFail($id);
 
-        $this->aboutRepository->pushCriteria(new RequestCriteria($request));
         $abouts = $this->aboutRepository->findWhere(['check' => '1']);
 
-        $this->travelRepository->pushCriteria(new RequestCriteria($request));
         $travels = $this->travelRepository->findWhere(['check' => '1']);
 
         $categories = Tour::select('category_tours_id')->distinct()->get();
