@@ -17,6 +17,8 @@ Route::resource('home-travel', 'Frontend\HomeTravelController');
 
 Route::resource('tours-travel', 'Frontend\TourController');
 
+Route::get('daytrip/{time}', ['as' => 'tours-travel.filterTime', 'uses' => 'Frontend\TourController@filterTime']);
+
 Route::get('tour-category/{category}', ['as' => 'tours-travel.filter', 'uses' => 'Frontend\TourController@filter']);
 
 Route::resource('things-to-do', 'Frontend\ActivityController');
