@@ -11,6 +11,7 @@ use App\Models\Activity;
 use App\Models\Image;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\ImageRepository;
+use App\Repositories\PriceRepository;
 
 class TourController extends AppBaseController
 {
@@ -20,12 +21,10 @@ class TourController extends AppBaseController
     /** @var  ImageRepository */
     private $imageRepository;
 
-
     public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo)
     {
         $this->tourRepository = $tourRepo;
         $this->imageRepository = $imageRepo;
-       
     }
     /**
      * Display a listing of the resource.
@@ -34,10 +33,8 @@ class TourController extends AppBaseController
      */
     public function index()
     {
-        
         $tours = $this->tourRepository->all();
 
-        
         $images = Image::select('tours_id')->distinct()->get();
         $i=0;
         foreach($images as $image){
