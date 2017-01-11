@@ -25,6 +25,6 @@ class UpdateImageRequest extends FormRequest
      */
     public function rules()
     {
-        return Image::$rules;
+        return Image::$rules_update;
     }
 }

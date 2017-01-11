@@ -48,6 +48,15 @@ class Image extends Model
     ];
 
     /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules_update = [
+        'image.*' => 'mimes:jpeg,jpg,png|max:8192'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
     public function activities()

@@ -13,6 +13,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\ImageRepository;
 use App\Repositories\PriceRepository;
 use App\Repositories\TimeRepository;
+use App\Repositories\PlaceRepository;
 
 class TourController extends AppBaseController
 {
@@ -25,11 +26,16 @@ class TourController extends AppBaseController
     /** @var  TimeRepository */
     private $timeRepository;
 
-    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo, TimeRepository $timeRepo)
+    /** @var  PlaceRepository */
+    private $placeRepository;
+
+    public function __construct(TourRepository $tourRepo, ImageRepository $imageRepo
+    , TimeRepository $timeRepo, PlaceRepository $placeRepo)
     {
         $this->tourRepository = $tourRepo;
         $this->imageRepository = $imageRepo;
         $this->timeRepository = $timeRepo;
+        $this->placeRepository = $placeRepo;
     }
     /**
      * Display a listing of the resource.
@@ -168,6 +174,71 @@ class TourController extends AppBaseController
      * @return \Illuminate\Http\Response
      */
     public function filterTime($id)
+    {
+        $tours = $this->tourRepository->findWhere(['times_id' => $id]);
+
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        $types = Activity::select('types_id')->distinct()->get();
+
+        $images = Image::select('tours_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+       
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['tours_id' => $image->tours_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
+
+        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'data_images', 'day_tour'));
+    }
+
+    /**
+     * find to category.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filterAddress($id)
+    {
+        $list_tours = $this->tourRepository->all();
+        $i=0;
+        foreach($list_tours as $tour){
+            foreach($tour->places as $place){
+                if($place->id==$id) {
+                    $tours[$i] = $tour;
+                }
+            }
+            $i++;
+        }
+
+        $categories = Tour::select('category_tours_id')->distinct()->get();
+
+        $types = Activity::select('types_id')->distinct()->get();
+
+        $images = Image::select('tours_id')->distinct()->get();
+
+        $day_tour = $this->timeRepository->findWhere(['time' => 'Day tour' ])->first();
+       
+        $i=0;
+        foreach($images as $image){
+            $first_image = $this->imageRepository->findWhere(['tours_id' => $image->tours_id])->first();
+            $data_images[$i] = $first_image;
+            $i++;
+        }
+
+        return view('frontend.tours.index', compact('tours', 'categories', 'types', 'data_images', 'day_tour'));
+    }
+
+    /**
+     * find to category.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filterChoiceTime($id)
     {
         $tours = $this->tourRepository->findWhere(['times_id' => $id]);
 

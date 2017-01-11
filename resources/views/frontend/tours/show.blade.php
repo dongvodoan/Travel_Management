@@ -12,7 +12,7 @@
 @section('content')
     <div class="container_12">
       <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h2>{{ $tour->title }}</h2>
+        <h2 style="text-transform:uppercase">{{ $tour->title }}</h2>
       </div>
       <div class="clear"></div>
       <div class="portfolio">
@@ -24,11 +24,14 @@
       </div>
       <div class="clear"></div>
         <div class="extra_wrapper">
-          <div class="" style="margin-top:8px;margin-bottom: 8px;"><label>from </label><span style="color: red;"> ${{ $tour->prices->price }}</span> 
-          <i class="fa fa-clock-o " style="margin-left: 20px;margin-top: 3px;"></i><span> {{ $tour->times->time }}</span> 
+          <div class="" style="margin-top:8px;margin-bottom: 8px;"><label>from </label>
+          <span style="color: red;"> ${{ $tour->prices->price }}</span> 
+          <i class="fa fa-clock-o " style="margin-left: 20px;margin-top: 3px;"></i>
+          <span><a href="{{route('tours-travel.filterChoiceTime',$tour->times->id)}}">{{ $tour->times->time }}</a></span> 
           <label><i style="margin-left: 20px;margin-top: 3px;" class="fa fa-map-marker"></i> @foreach($tour->places as $place) 
             <span>
-                {!! $place->name !!},
+              <a href="{{route('tours-travel.filterAddress',$place->id)}}">
+                  {!! $place->name !!},</a>
             </span> 
             @endforeach</label></div>
           <p>{{ $tour->describe }}</p>

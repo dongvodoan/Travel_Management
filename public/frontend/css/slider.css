@@ -65,7 +65,6 @@ position: absolute;
 left: 50%;
 margin-left: -51px;
 z-index: 999;
-bottom: -20px;
 }
 
 .pagination li {
