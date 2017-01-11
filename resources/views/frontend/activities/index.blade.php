@@ -19,7 +19,7 @@
       <div class="clear"></div>
       @foreach($activities as $activity)
       <div class="news"> 
-        <img style="width: 200px; height: 150px;" src="@foreach($images as $image) @if($activity->id===$image->activities_id) {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="" class="img_inner fleft">
+        <img style="width: 200px; height: 150px;" src="@foreach($data_images as $image) @if($activity->id===$image->activities_id) {!! url(config('path.upload_img').$image->name) !!} @endif @endforeach" alt="" class="img_inner fleft">
         <div class="extra_wrapper">
           <h3 style="font-size: 22px;">{{ $activity->title }}</h3>
           <p>{{ Util::theExcerpt($activity->describe, 200) }}</p>
