@@ -76,14 +76,15 @@ class ActivityController extends AppBaseController
             $data = array('_token' => $token,'name' => '', 'activities_id'=> $activities_id);
         
             $images = $request->file('image');
-            
+            $number = 0;
             foreach($images as $image){
-                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $imagename=time() . '_'.$input['title'].'_'.$number .'.'. $image->getClientOriginalExtension();
                 $data['name'] = $imagename;
 
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
+                $number++;
             }
             Flash::success('Activity saved successfully.');
 
@@ -158,7 +159,7 @@ class ActivityController extends AppBaseController
         $token = $input['_token'];
         
         $data = array('_token' => $token,'name' => '', 'activities_id'=> $id);
-
+        $number = 0;
         if ($request->hasFile('image')) {
             $images = $this->imageRepository->findWhere(['activities_id' => $id]);
             foreach($images as $image){
@@ -167,12 +168,13 @@ class ActivityController extends AppBaseController
 
             $edit_images = $request->file('image');
             foreach($edit_images as $image){
-                $imagename=time() . '_'.$input['title'] .'.'. $image->getClientOriginalExtension();
+                $imagename=time() . '_'.$input['title'] .'_'.$number.'.'. $image->getClientOriginalExtension();
                 $data['name'] = $imagename;
 
                 $image->move(public_path(config('path.upload_img')), $imagename);
                 
                 $image = $this->imageRepository->create($data);
+                $number++;
             }
         }
 
