@@ -14,7 +14,7 @@
     <div style="margin-top:10px;">
         @include('flash::message')
     </div>
-    <div class="col col-lg-8">
+    <div class="col col-lg-9">
       <h2 class="head2">SIGHTSEEING TOURS HANOI</h2>
       <div class="clear"></div>
       @foreach($tours as $tour)
@@ -39,7 +39,7 @@
         <div class="clear"></div>
       @endforeach
     </div>
-    <div class="col col-lg-3 col-lg-offset-1">
+    <div class="col col-lg-2 col-lg-offset-1">
       <h2 class="head2">Hanoi Tour</h2>
       <ul class="list l1">
       @foreach($categories as $category)
