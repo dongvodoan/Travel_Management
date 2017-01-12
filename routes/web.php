@@ -45,7 +45,7 @@ Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\
 
 Auth::routes();
 
-Route::get('/home', 'Backend\HomeController@index');
+Route::get('/home', ['as' => 'home.index', 'uses' => 'Backend\HomeController@index']);
 
 Route::resource('travels', 'Backend\TravelController');
 

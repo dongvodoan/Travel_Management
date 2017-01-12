@@ -9,6 +9,9 @@
     "tests"
   ],
   "dependencies": {
-    "summernote": "^0.8.2"
+    "summernote": "^0.8.2",
+    "selectize": "^0.12.4",
+    "sifter": "^0.5.2",
+    "microplugin": "^0.0.3"
   }
 }

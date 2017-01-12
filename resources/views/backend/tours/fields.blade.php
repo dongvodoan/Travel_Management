@@ -4,6 +4,16 @@
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Place Field -->
+<div class="form-group col-sm-6"> 
+    {!! Form::label('place', 'Choose Places') !!}
+    <select name="check_list[]" multiple id="subject" class="form-control">
+        <option value=""></option>
+        @foreach($places as $place)
+        <option value="{!! $place->id !!}">{!! $place->name !!}</option>
+        @endforeach
+    </select>
+</div>
 <!-- Describe Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('describe', 'Describe:') !!}
@@ -54,18 +64,7 @@
     </select>	
 </div>
 
-<!-- Place Field -->
-<div class="form-group col-sm-12 col-lg-12"> 
-	<div class="col col-lg-1 col-md-1">
-		 {!! Form::label('place', 'Choose Place') !!}
-	</div>
-	<div class="col col-lg-11 col-md-11 thumbnail">
-		@foreach($places as $place)
-	{!! Form::checkbox('check_list[]', $place->id, null, ['id' => $place->name]) !!}
-	{!! Form::label($place->name, $place->name, ['style' => 'margin-right: 10px']) !!}
-	@endforeach
-	</div>
-</div>
+
 
 <!-- Images Field -->
 <div class="col-lg-12">

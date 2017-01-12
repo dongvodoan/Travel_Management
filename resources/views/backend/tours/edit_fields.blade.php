@@ -4,6 +4,17 @@
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Place Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('place', 'Choose Places') !!}
+    <select name="check_list[]" multiple id="subject" class="form-control">
+        <option value=""></option>
+        @foreach($places as $place)
+        <option @foreach($tour->places as $place1) @if($place->id === $place1->id) selected @endif @endforeach value="{!! $place->id !!}">{!! $place->name !!}</option>
+        @endforeach
+    </select>
+</div>
+
 <!-- Describe Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('describe', 'Describe:') !!}
@@ -52,20 +63,6 @@
     	<option @if(($categoryTour->name)===($tour->category_tours->name)) selected @endif value="{!! $categoryTour->id !!}">{!! $categoryTour->name !!}</option>
     	@endforeach
     </select>	
-</div>
-
-{{-- @foreach($tour->places as $place_check) {!!$place_check->name!!} @endforeach --}}
-<!-- Place Field -->
-<div class="form-group col-sm-12 col-lg-12">
-	<div class="col col-lg-1 col-md-1">
-		 {!! Form::label('place', 'Choose Place') !!}
-	</div>
-	<div class="col col-lg-11 col-md-11 thumbnail">
-		@foreach($places as $place)
-		<input type="checkbox" name="check_list[]" @foreach($tour->places as $place1) @if($place->id === $place1->id) checked @else false @endif @endforeach value="{{ $place->id }}" id="{{ $place->name }}">
-        <label for="{!! $place->name !!}" style="margin-right: 10px">{!! $place->name !!}</label>
-	@endforeach
-	</div>
 </div>
 
 <!-- Images Field -->
