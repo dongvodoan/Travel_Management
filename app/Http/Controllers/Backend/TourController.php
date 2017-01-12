@@ -93,7 +93,7 @@ class TourController extends AppBaseController
         $token = $input['_token']; 
 
         $check = $request->input('check_list');
-               
+              
         if ($request->hasFile('image')) {
             $tour = $this->tourRepository->create($input);
 

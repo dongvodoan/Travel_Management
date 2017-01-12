@@ -1,5 +1,9 @@
 @extends('backend.layouts.app')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ url('backend/css/selectize.bootstrap3.css') }}">
+@endsection
+
 @section('content')
     <section class="content-header">
         <h1>
@@ -24,4 +28,12 @@
 
 @section('scripts')
     <script src="{{ url('backend/js/displayimages.js')}}"></script>
+    <script src="{{ url('backend/js/selectize.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#subject').selectize({
+                maxItems: 5
+            });
+        });
+    </script>
 @endsection
