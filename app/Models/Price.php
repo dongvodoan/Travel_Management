@@ -44,7 +44,7 @@ class Price extends Model
     public static $rules = [
         'title' => 'required|max:30|min:3',
         'content' => 'required',
-        'price'  => 'required|numberic'
+        'price'  => 'required|numeric'
     ];
 
     /**
