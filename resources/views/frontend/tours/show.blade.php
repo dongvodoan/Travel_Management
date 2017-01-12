@@ -44,8 +44,8 @@
 
   <!-- Tab panes -->
   <div class="tab-content" style="border: 1px solid #dddddd; background-color: #fff; padding: 10px;border-top: none;">
-    <div role="tabpanel" class="tab-pane fade in active" id="home">{!! $tour->prices->content !!}</div>
-    <div role="tabpanel" class="tab-pane fade" id="profile">{!! $tour->itineraries->content !!}</div>
+    <div role="tabpanel" class="tab-pane fade in active" id="home">{!! $tour->itineraries->content !!}</div>
+    <div role="tabpanel" class="tab-pane fade" id="profile">{!! $tour->prices->content !!}</div>
   </div>
 
 </div>
