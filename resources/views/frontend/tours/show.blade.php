@@ -18,7 +18,9 @@
       <div class="portfolio">
       @foreach($images as $image)
         <div class="col col-lg-6 col-md-6 col-sm-4 col-xs-4 text-center">
-          <a href="{{ url(config('path.upload_img').$image->name) }}" data-gal="prettyPhoto[1]"><span></span><img src="{{ url(config('path.upload_img').$image->name) }}" alt=""></a>
+          <a href="{{ url(config('path.upload_img').$image->name) }}" data-gal="prettyPhoto[1]"><span></span>
+              <img src="{{ url(config('path.upload_img').$image->name) }}" alt="" style="height:300px">
+          </a>
         </div>
       @endforeach
       </div>
